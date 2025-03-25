@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Medical_E_Commerce.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Medical_E_Commerce.Persistence;
 
-public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : IdentityDbContext(options)
+public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : 
+    IdentityDbContext<ApplicationUser,ApplicationRoles,string>(options)
 {
 
 
