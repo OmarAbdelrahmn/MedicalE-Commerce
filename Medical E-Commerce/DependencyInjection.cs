@@ -1,4 +1,6 @@
-﻿using Medical_E_Commerce.Persistence;
+﻿using Medical_E_Commerce.Entities;
+using Medical_E_Commerce.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Medical_E_Commerce;
@@ -37,7 +39,9 @@ public static class DependencyInjection
     }
     private static IServiceCollection AddAuth(this IServiceCollection services)
     {
-        
+        services.AddIdentity<ApplicationUser, ApplicationRoles>()
+            .AddEntityFrameworkStores<ApplicationDbcontext>()
+            .AddDefaultTokenProviders();
 
         return services;
     }
