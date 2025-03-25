@@ -8,8 +8,6 @@ namespace Medical_E_Commerce.Persistence;
 public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : 
     IdentityDbContext<ApplicationUser,ApplicationRoles,string>(options)
 {
-
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
