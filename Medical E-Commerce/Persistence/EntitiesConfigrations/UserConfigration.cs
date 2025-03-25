@@ -1,4 +1,6 @@
-﻿using Medical_E_Commerce.Entities;
+﻿using Medical_E_Commerce.Abstractions.Consts;
+using Medical_E_Commerce.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -15,6 +17,21 @@ public class UserConfigration : IEntityTypeConfiguration<ApplicationUser>
 
         builder.Property(c => c.UserAddress)
             .HasMaxLength(50)
-            .IsRequired();
+        .IsRequired();
+
+        builder.HasData(new ApplicationUser
+        {
+            Id = DefaultUsers.AdminId,
+            UserName = DefaultUsers.AdminEmail,
+            NormalizedUserName = DefaultUsers.AdminEmail.ToUpper(),
+            Email = DefaultUsers.AdminEmail,
+            NormalizedEmail = DefaultUsers.AdminEmail.ToUpper(),
+            EmailConfirmed = true,
+            PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null!, "P@ssword1234"),
+            SecurityStamp = DefaultUsers.AdminSecurityStamp,
+            ConcurrencyStamp = DefaultUsers.AdminConcurrencyStamp,
+            UserFullName = "CareCapsole-Admin",
+            UserAddress = "lives in CareCapsole"
+        });
     }
 }

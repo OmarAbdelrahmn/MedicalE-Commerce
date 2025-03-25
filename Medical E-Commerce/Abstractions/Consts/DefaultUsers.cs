@@ -1,6 +1,6 @@
 ﻿namespace Medical_E_Commerce.Abstractions.Consts;
 
-public static class DefaultUser
+public static class DefaultUsers
 {
     public const string AdminId = "59724D2D-E2B5-4C67-AB6F-D93478347B03";
     public const string AdminEmail = "admin@survay-basket.com";
