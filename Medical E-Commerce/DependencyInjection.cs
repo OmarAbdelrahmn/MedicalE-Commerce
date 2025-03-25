@@ -14,7 +14,8 @@ public static class DependencyInjection
         services
             .AddSwagger()
             .AddDatabase(configuration)
-            .AddAuth();
+            .AddAuth()
+            .AddCORS();
         return services;
     }
 
@@ -23,6 +24,19 @@ public static class DependencyInjection
         services.AddOpenApi();
         services.AddSwaggerGen();
 
+        return services;
+    }
+    private static IServiceCollection AddCORS(this IServiceCollection services)
+    {
+        services.AddCors(
+            options =>
+            options.AddDefaultPolicy(
+               builder =>
+               builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+                ));
         return services;
     }
     
