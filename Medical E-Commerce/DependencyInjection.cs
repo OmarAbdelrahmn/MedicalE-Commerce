@@ -1,8 +1,11 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Mapster;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Medical_E_Commerce;
 
@@ -17,7 +20,8 @@ public static class DependencyInjection
             .AddDatabase(configuration)
             .AddAuth()
             .AddCORS()
-            .AddMapster();
+            .Add_Mapster()
+            .AddFluant_Validation();
         return services;
     }
 
@@ -28,7 +32,15 @@ public static class DependencyInjection
 
         return services;
     }
-    private static IServiceCollection AddMapster(this IServiceCollection services)
+    private static IServiceCollection AddFluant_Validation(this IServiceCollection services)
+    {
+        services
+            .AddFluentValidationAutoValidation()
+            .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+        return services;
+    }
+    private static IServiceCollection Add_Mapster(this IServiceCollection services)
     {
         services.AddMapster();
 
@@ -46,8 +58,7 @@ public static class DependencyInjection
                .AllowAnyHeader()
                 ));
         return services;
-    }
-    
+    } 
     private static IServiceCollection AddDatabase(this IServiceCollection services , IConfiguration configuration)
     {
         var ConnectionString = configuration.GetConnectionString("DefaultConnection") ??
