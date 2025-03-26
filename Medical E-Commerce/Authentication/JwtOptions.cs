@@ -4,6 +4,8 @@ namespace Medical_E_Commerce.Authentication;
 
 public class JwtOptions
 {
+    public static string SectionName = "Jwt";
+
     [Required]
     public string Issuer { get; init; } = string.Empty;
 
