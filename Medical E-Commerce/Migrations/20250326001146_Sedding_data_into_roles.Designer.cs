@@ -4,6 +4,7 @@ using Medical_E_Commerce.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical_E_Commerce.Migrations
 {
     [DbContext(typeof(ApplicationDbcontext))]
-    partial class ApplicationDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250326001146_Sedding_data_into_roles")]
+    partial class Sedding_data_into_roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,7 +166,7 @@ namespace Medical_E_Commerce.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARE-CAPSOLE.COM",
                             NormalizedUserName = "ADMIN@CARE-CAPSOLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENX00FHL3toEKpyRxcxPbepCqlavC/W2lh7dBcLj4bTwEE6jN5gbuDNjbe4fu7jiKQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMKTxZ9HaRYrU+qsV7mzmGP3I8zO9JhJ3Iqn7+xBa9UVleyF7aPCBsvLZqw/D/SXgw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "9FABB58491024B7BB140E4D6658B5BDA",
                             TwoFactorEnabled = false,
@@ -171,51 +174,6 @@ namespace Medical_E_Commerce.Migrations
                             UserFullName = "CareCapsole-Admin",
                             UserName = "admin@care-capsole.com"
                         });
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.CartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Medical_E_Commerce.Entities.Image", b =>
@@ -245,90 +203,7 @@ namespace Medical_E_Commerce.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Item", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EffectiveSubstance")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PharmacyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PharmacyId");
-
-                    b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Pharmacy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MapsLocation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumbers")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WhatsUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pharmacies");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -444,36 +319,6 @@ namespace Medical_E_Commerce.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Cart", b =>
-                {
-                    b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.CartItem", b =>
-                {
-                    b.HasOne("Medical_E_Commerce.Entities.Cart", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Medical_E_Commerce.Entities.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("Medical_E_Commerce.Entities.Image", b =>
                 {
                     b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "User")
@@ -483,17 +328,6 @@ namespace Medical_E_Commerce.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Item", b =>
-                {
-                    b.HasOne("Medical_E_Commerce.Entities.Pharmacy", "Pharmacy")
-                        .WithMany("Items")
-                        .HasForeignKey("PharmacyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Pharmacy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -550,16 +384,6 @@ namespace Medical_E_Commerce.Migrations
             modelBuilder.Entity("Medical_E_Commerce.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Image");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Cart", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Medical_E_Commerce.Entities.Pharmacy", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
