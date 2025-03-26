@@ -1,4 +1,5 @@
-﻿using Medical_E_Commerce.Entities;
+﻿using Mapster;
+using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,8 @@ public static class DependencyInjection
             .AddSwagger()
             .AddDatabase(configuration)
             .AddAuth()
-            .AddCORS();
+            .AddCORS()
+            .AddMapster();
         return services;
     }
 
@@ -23,6 +25,12 @@ public static class DependencyInjection
     {
         services.AddOpenApi();
         services.AddSwaggerGen();
+
+        return services;
+    }
+    private static IServiceCollection AddMapster(this IServiceCollection services)
+    {
+        services.AddMapster();
 
         return services;
     }

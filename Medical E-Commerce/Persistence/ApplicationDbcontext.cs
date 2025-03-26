@@ -21,8 +21,10 @@ public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // to make intities configurations
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        // to chagne delete behavior to restrict
         var cascadeFKs = modelBuilder.Model.GetEntityTypes()
             .SelectMany(t => t.GetForeignKeys())
             .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
