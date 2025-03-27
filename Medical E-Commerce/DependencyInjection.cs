@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Hangfire;
 using Mapster;
 using MapsterMapper;
 using Medical_E_Commerce.Authentication;
@@ -129,5 +130,17 @@ public static class DependencyInjection
 
 
         return services;
+    }
+    public static IServiceCollection AddHangfire(this IServiceCollection Services, IConfiguration configuration)
+    {
+        Services.AddHangfire(config => config
+        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+        .UseSimpleAssemblyNameTypeSerializer()
+        .UseRecommendedSerializerSettings()
+        .UseSqlServerStorage(configuration.GetConnectionString("DefaultConnection")));
+
+        // Add the processing server as IHostedService
+        Services.AddHangfireServer();
+        return Services;
     }
 }
