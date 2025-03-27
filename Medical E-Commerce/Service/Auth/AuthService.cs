@@ -7,6 +7,7 @@ using Medical_E_Commerce.Authentication;
 using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Helpers;
+using Medical_E_Commerce.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
@@ -24,12 +25,12 @@ public class AuthService(
     IHttpContextAccessor httpContextAccessor,
     IEmailSender emailSender ,
     SignInManager<ApplicationUser> signInManager,
-    DbContext dbContext,
+    ApplicationDbcontext dbContext,
     IJwtProvider jwtProvider) : IAuthService
 {
     private readonly UserManager<ApplicationUser> manager = manager;
     private readonly SignInManager<ApplicationUser> signInManager = signInManager;
-    private readonly DbContext dbcontext = dbContext;
+    private readonly ApplicationDbcontext context = dbContext;
     private readonly IJwtProvider jwtProvider = jwtProvider;
     private readonly int RefreshTokenExpiryDays = 60;
 
@@ -166,15 +167,8 @@ public class AuthService(
         UserRefreshToken.RevokedOn = DateTime.UtcNow;
 
         var userRoles = await manager.GetRolesAsync(user);
-        var UserPermissions = await dbcontext.Roles
-            .Join(dbcontext.RoleClaims, role => role.Id,
-            claim => claim.RoleId,
-            (role, claim) => new { role, claim })
-            .Where(x => userRoles.Contains(x.role.Name!))
-        .Select(x => x.claim.ClaimType)
-        .Distinct()
-            .ToListAsync();
-        var (newToken, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles, UserPermissions!);
+        
+        var (newToken, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles);
 
         var newRefreshToken = GenerateRefreshToken();
 
@@ -193,8 +187,8 @@ public class AuthService(
         var response = new AuthResponse(
             user.Id,
             user.Email!,
-            user.FirstName,
-            user.LastName,
+            user.UserFullName,
+            user.UserAddress,
             newToken,
             ExpiresIn * 60,
             newRefreshToken,
@@ -227,35 +221,8 @@ public class AuthService(
         return Result.Success();
     }
 
-    public async Task<Result> RegisterAsync(RegisterRequest request)
-    {
-        var emailisex = await manager.Users.AnyAsync(i => i.Email == request.Email);
-
-        if (emailisex)
-            return Result.Failure(UserErrors.EmailAlreadyExist);
-
-        var user = request.Adapt<ApplicataionUser>();
-
-        var result = await manager.CreateAsync(user, request.Password);
-
-        if (result.Succeeded)
-        {
-            var code = await manager.GenerateEmailConfirmationTokenAsync(user);
-
-            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
-            logger.LogInformation("Configration code : {code}", code);
-
-            await sendemail(user, code);
-
-            return Result.Success();
-        }
-        var errors = result.Errors.First();
-        return Result.Failure(new Error(errors.Code, errors.Description, StatusCodes.Status400BadRequest));
-
-    }
-
-    public async Task<Result> ConfirmEmailAsync(ConfigrationEmailRequest request)
+   
+    public async Task<Result> ConfirmEmailAsync(ConfirmEmailRequest request)
     {
 
         if (await manager.FindByIdAsync(request.UserId) is not { } user)
