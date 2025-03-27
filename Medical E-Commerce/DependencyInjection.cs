@@ -4,11 +4,14 @@ using Hangfire;
 using Mapster;
 using MapsterMapper;
 using Medical_E_Commerce.Authentication;
+using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Medical_E_Commerce.Service.Auth;
+using Medical_E_Commerce.Setting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
@@ -24,6 +27,7 @@ public static class DependencyInjection
         
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IEmailSender, EmailService>();
 
         services
             .AddSwagger()
@@ -31,7 +35,8 @@ public static class DependencyInjection
             .AddAuth(configuration)
             .AddCORS()
             .Add_Mapster()
-            .AddFluant_Validation();
+            .AddFluant_Validation()
+            .AddHangfire(configuration);
         return services;
     }
 
@@ -91,6 +96,8 @@ public static class DependencyInjection
             .AddDefaultTokenProviders();
 
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+
+        services.Configure<MainSettings>(configuration.GetSection(nameof(MainSettings)));
 
         var Jwtsetting = configuration.GetSection("Jwt").Get<JwtOptions>();
 

@@ -1,11 +1,14 @@
-﻿using Mapster;
+﻿using Hangfire;
+using Mapster;
 using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Errors;
+using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
@@ -15,11 +18,12 @@ namespace Medical_E_Commerce.Service.Auth;
 public class AuthService(
     UserManager<ApplicationUser> manager,
     ILogger<AuthService> logger,
-    IHttpContextAccessor httpContextAccessor) : IAuthService
+    IHttpContextAccessor httpContextAccessor,
+    IEmailSender emailSender) : IAuthService
 {
     private readonly UserManager<ApplicationUser> manager = manager;
 
-    public async Task<Result> RegisterAsync(RegisterRequest request)
+    public async Task<Result> RegisterAsync(Registerrequest request)
     {
         var emailIsEx = await manager.Users.AnyAsync(c=>c.Email == request.Email);
 
@@ -27,6 +31,8 @@ public class AuthService(
             return Result.Failure(UserErrors.UserAlreayExists);
 
         var user = request.Adapt<ApplicationUser>();
+
+        user.UserName = user.Email;
         
         var result = await manager.CreateAsync(user,request.Password);
 
