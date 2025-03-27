@@ -8,5 +8,6 @@ public class UserErrors
     public static readonly Error EmailNotConfirmed = new("User.EmailNotConfirmed", "This is not confirmed ", StatusCodes.Status401Unauthorized);
     public static readonly Error userLockedout = new("User.userLockedout", "user Lockedout , contact the admin", StatusCodes.Status401Unauthorized);
     public static readonly Error UserNotFound = new("User.UserNotFound", "user Not Found", StatusCodes.Status401Unauthorized);
+    public static readonly Error DuplicatedConfermation = new("User.DuplicatedConfermation", "Email already confirmed", StatusCodes.Status401Unauthorized);
 
 }

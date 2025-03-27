@@ -8,9 +8,7 @@ using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Helpers;
 using Medical_E_Commerce.Persistence;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +21,7 @@ public class AuthService(
     UserManager<ApplicationUser> manager,
     ILogger<AuthService> logger,
     IHttpContextAccessor httpContextAccessor,
-    IEmailSender emailSender ,
+    IEmailSender emailSender,
     SignInManager<ApplicationUser> signInManager,
     ApplicationDbcontext dbContext,
     IJwtProvider jwtProvider) : IAuthService
@@ -36,16 +34,16 @@ public class AuthService(
 
     public async Task<Result> RegisterAsync(Registerrequest request)
     {
-        var emailIsEx = await manager.Users.AnyAsync(c=>c.Email == request.Email);
+        var emailIsEx = await manager.Users.AnyAsync(c => c.Email == request.Email);
 
-        if(emailIsEx)
+        if (emailIsEx)
             return Result.Failure(UserErrors.UserAlreayExists);
 
         var user = request.Adapt<ApplicationUser>();
 
         user.UserName = user.Email;
-        
-        var result = await manager.CreateAsync(user,request.Password);
+
+        var result = await manager.CreateAsync(user, request.Password);
 
         if (result.Succeeded)
         {
@@ -78,7 +76,6 @@ public class AuthService(
         await Task.CompletedTask;
     }
 
-
     public async Task<Result<AuthResponse>> SingInAsync(AuthRequest request)
     {
 
@@ -93,7 +90,7 @@ public class AuthService(
         if (result.Succeeded)
         {
             var userRoles = await manager.GetRolesAsync(user);
-           
+
             var (Token, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles);
 
             var RefreshToken = GenerateRefreshToken();
@@ -167,7 +164,7 @@ public class AuthService(
         UserRefreshToken.RevokedOn = DateTime.UtcNow;
 
         var userRoles = await manager.GetRolesAsync(user);
-        
+
         var (newToken, ExpiresIn) = jwtProvider.GenerateToken(user, userRoles);
 
         var newRefreshToken = GenerateRefreshToken();
@@ -221,7 +218,6 @@ public class AuthService(
         return Result.Success();
     }
 
-   
     public async Task<Result> ConfirmEmailAsync(ConfirmEmailRequest request)
     {
 
@@ -278,86 +274,73 @@ public class AuthService(
 
         return Result.Success();
     }
-
-    private async Task sendemail(ApplicataionUser user, string code)
-    {
-        var origin = httpContextAccessor.HttpContext?.Request.Headers.Origin;
-
-        var emailbody = EmailBodyBuilder.GenerateEmailBody("EmailConfirmation",
-            new Dictionary<string, string> {
-                    { "{{name}}", user.FirstName } ,
-                    { "{{action_url}}", $"{origin}/auth/emailconfigration?userid={user.Id}&code={code}" }
-
-            });
-
-        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "Survay basket : Email configration", emailbody));
-        await Task.CompletedTask;
-    }
-
-    private async Task sendchangepasswordemail(ApplicataionUser user, string code)
-    {
-        var origin = httpContextAccessor.HttpContext?.Request.Headers.Origin;
-
-        var emailbody = EmailBodyBuilder.GenerateEmailBody("ForgetPassword",
-            new Dictionary<string, string> {
-                    { "{{name}}", user.FirstName } ,
-                    { "{{action_url}}", $"{origin}/auth/forgetpassword?email={user.Email}&code={code}" }
-
-            });
-
-        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "Survay basket : change password", emailbody));
-        await Task.CompletedTask;
-    }
-
-    public async Task<Result> ForgetPassordAsync(ForgetPasswordRequest request)
-    {
-        if (await manager.FindByEmailAsync(request.Email) is not { } user)
-            return Result.Success();
-
-        if (!user.EmailConfirmed)
-            return Result.Failure(UserErrors.EmailNotConfirmed);
-
-        var code = await manager.GeneratePasswordResetTokenAsync(user);
-
-        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
-        logger.LogInformation("Reset code : {code}", code);
-
-        //send email
-        await sendchangepasswordemail(user, code);
-
-        return Result.Success();
-
-    }
-
-    public async Task<Result> ResetPasswordAsync(ResetPasswordRequest request)
-    {
-        var user = await manager.FindByEmailAsync(request.Email);
-
-        if (user == null || !user.EmailConfirmed)
-            return Result.Failure(UserErrors.InvalidCredentials);
-
-        IdentityResult identityResult;
-
-        try
-        {
-            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
-
-            identityResult = await manager.ResetPasswordAsync(user, code, request.Password);
-
-        }
-        catch (FormatException)
-        {
-
-            identityResult = IdentityResult.Failed(manager.ErrorDescriber.InvalidToken());
-        }
-
-        if (identityResult.Succeeded)
-            return Result.Success();
-
-        var error = identityResult.Errors.First();
-
-        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status401Unauthorized));
-    }
-
 }
+
+
+//    private async Task sendchangepasswordemail(ApplicataionUser user, string code)
+//    {
+//        var origin = httpContextAccessor.HttpContext?.Request.Headers.Origin;
+
+//        var emailbody = EmailBodyBuilder.GenerateEmailBody("ForgetPassword",
+//            new Dictionary<string, string> {
+//                    { "{{name}}", user.FirstName } ,
+//                    { "{{action_url}}", $"{origin}/auth/forgetpassword?email={user.Email}&code={code}" }
+
+//            });
+
+//        BackgroundJob.Enqueue(() => emailSender.SendEmailAsync(user.Email!, "Survay basket : change password", emailbody));
+//        await Task.CompletedTask;
+//    }
+
+//    public async Task<Result> ForgetPassordAsync(ForgetPasswordRequest request)
+//    {
+//        if (await manager.FindByEmailAsync(request.Email) is not { } user)
+//            return Result.Success();
+
+//        if (!user.EmailConfirmed)
+//            return Result.Failure(UserErrors.EmailNotConfirmed);
+
+//        var code = await manager.GeneratePasswordResetTokenAsync(user);
+
+//        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+//        logger.LogInformation("Reset code : {code}", code);
+
+//        //send email
+//        await sendchangepasswordemail(user, code);
+
+//        return Result.Success();
+
+//    }
+
+//    public async Task<Result> ResetPasswordAsync(ResetPasswordRequest request)
+//    {
+//        var user = await manager.FindByEmailAsync(request.Email);
+
+//        if (user == null || !user.EmailConfirmed)
+//            return Result.Failure(UserErrors.InvalidCredentials);
+
+//        IdentityResult identityResult;
+
+//        try
+//        {
+//            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(request.Code));
+
+//            identityResult = await manager.ResetPasswordAsync(user, code, request.Password);
+
+//        }
+//        catch (FormatException)
+//        {
+
+//            identityResult = IdentityResult.Failed(manager.ErrorDescriber.InvalidToken());
+//        }
+
+//        if (identityResult.Succeeded)
+//            return Result.Success();
+
+//        var error = identityResult.Errors.First();
+
+//        return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status401Unauthorized));
+//    }
+
+//}
