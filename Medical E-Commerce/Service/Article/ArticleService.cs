@@ -45,18 +45,18 @@ public class ArticleService(ApplicationDbcontext context) : IArticleService
         return Result.Success(articles);
     }
 
-    public async Task<Result<ArticleResponse>> GetByNameAsynce(string Name, CancellationToken cancellationToken = default)
+    public async Task<Result<IEnumerable<ArticleResponse>>> GetByNameAsynce(string Name, CancellationToken cancellationToken = default)
     {
         var articles = await context.Articles
                    .Where(x => x.Name.Contains(Name))
                    .ProjectToType<ArticleResponse>()
                    .AsNoTracking()
-                   .SingleOrDefaultAsync(cancellationToken);
+                   .ToListAsync(cancellationToken);
 
         if (articles is null)
-            return Result.Failure<ArticleResponse>(ArticleErrors.ArticleNotNound);
+            return Result.Failure<IEnumerable<ArticleResponse>>(ArticleErrors.ArticleNotNound);
 
-        return Result.Success(articles);
+        return Result.Success<IEnumerable<ArticleResponse>>(articles);
     }
 
     public async Task<Result<ArticleResponse>> UpdateAsynce(int id, ArticleRequest request, CancellationToken cancellationToken = default)
