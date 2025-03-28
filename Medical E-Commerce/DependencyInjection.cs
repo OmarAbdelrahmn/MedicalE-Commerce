@@ -7,6 +7,7 @@ using Medical_E_Commerce.Authentication;
 using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
+using Medical_E_Commerce.Service.Admin;
 using Medical_E_Commerce.Service.Auth;
 using Medical_E_Commerce.Service.UserService;
 using Medical_E_Commerce.Setting;
@@ -30,6 +31,7 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailSender, EmailService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAdminService, AdminService>();
 
         services
             .AddSwagger()
