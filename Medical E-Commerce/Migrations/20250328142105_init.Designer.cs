@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical_E_Commerce.Migrations
 {
     [DbContext(typeof(ApplicationDbcontext))]
-    [Migration("20250326001446_add_domains_Models")]
-    partial class add_domains_Models
+    [Migration("20250328142105_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,8 +97,11 @@ namespace Medical_E_Commerce.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDisable")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -163,10 +166,11 @@ namespace Medical_E_Commerce.Migrations
                             ConcurrencyStamp = "B4555410-F5B0-45B1-B963-1B2351A0723C",
                             Email = "admin@care-capsole.com",
                             EmailConfirmed = true,
+                            IsDisable = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARE-CAPSOLE.COM",
                             NormalizedUserName = "ADMIN@CARE-CAPSOLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENX00FHL3toEKpyRxcxPbepCqlavC/W2lh7dBcLj4bTwEE6jN5gbuDNjbe4fu7jiKQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH5vUuPwuz+jnBJRc15s4RHkT67EMhWV+LptLzFSeFqtBm8ouYhjToihcFkjh+XPZQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "9FABB58491024B7BB140E4D6658B5BDA",
                             TwoFactorEnabled = false,
@@ -447,6 +451,43 @@ namespace Medical_E_Commerce.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Medical_E_Commerce.Entities.ApplicationUser", b =>
+                {
+                    b.OwnsMany("Medical_E_Commerce.Entities.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<string>("ApplicationUserId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<DateTime>("CreatedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("ExpiresOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime?>("RevokedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("Token")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ApplicationUserId", "Id");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ApplicationUserId");
+                        });
+
+                    b.Navigation("RefreshTokens");
+                });
+
             modelBuilder.Entity("Medical_E_Commerce.Entities.Cart", b =>
                 {
                     b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "User")
@@ -482,7 +523,7 @@ namespace Medical_E_Commerce.Migrations
                     b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "User")
                         .WithOne("Image")
                         .HasForeignKey("Medical_E_Commerce.Entities.Image", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

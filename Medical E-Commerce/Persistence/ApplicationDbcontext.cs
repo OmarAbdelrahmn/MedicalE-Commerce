@@ -32,6 +32,12 @@ public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options
         foreach (var fk in cascadeFKs)
             fk.DeleteBehavior = DeleteBehavior.Restrict;
 
+        modelBuilder.Entity<ApplicationUser>()
+        .HasOne(a => a.Image)
+        .WithOne(i => i.User)
+        .HasForeignKey<Image>(i => i.UserId);
+
+
 
         base.OnModelCreating(modelBuilder);
 

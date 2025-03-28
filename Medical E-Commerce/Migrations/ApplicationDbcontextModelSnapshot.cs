@@ -94,8 +94,8 @@ namespace Medical_E_Commerce.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ImageId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDisable")
                         .HasColumnType("bit");
@@ -167,7 +167,7 @@ namespace Medical_E_Commerce.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARE-CAPSOLE.COM",
                             NormalizedUserName = "ADMIN@CARE-CAPSOLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJJI/4pNhS0StcA6i/dNsCdvp7rErPKxUvMVyv4jgVLIEhEQU5sKOw9tQsC6Lo4SoQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH5vUuPwuz+jnBJRc15s4RHkT67EMhWV+LptLzFSeFqtBm8ouYhjToihcFkjh+XPZQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "9FABB58491024B7BB140E4D6658B5BDA",
                             TwoFactorEnabled = false,
@@ -520,7 +520,7 @@ namespace Medical_E_Commerce.Migrations
                     b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "User")
                         .WithOne("Image")
                         .HasForeignKey("Medical_E_Commerce.Entities.Image", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

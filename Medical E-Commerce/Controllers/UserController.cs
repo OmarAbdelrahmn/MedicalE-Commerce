@@ -1,4 +1,5 @@
 ﻿using Medical_E_Commerce.Abstractions;
+using Medical_E_Commerce.Contracts.Files;
 using Medical_E_Commerce.Contracts.User;
 using Medical_E_Commerce.Extensions;
 using Medical_E_Commerce.Service.UserService;
@@ -36,5 +37,24 @@ public class UserController(IUserService service) : ControllerBase
         var result = await service.ChangePassword(User.GetUserId()!, request);
 
         return result.IsSuccess ? NoContent() : result.ToProblem();
+    }
+
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImagesAsync([FromForm] UpdoadImagessRequest request)
+    {
+        await service.UpoadImage(User.GetUserId()!,request.Image);
+
+        return Created();
+    }
+
+
+    [HttpGet("image-stream")]
+    public async Task<IActionResult> stream()
+    {
+        var (filestream, contenttype, filename) = await service.FileStream(User.GetUserId()!);
+
+        return filestream is null ?
+            NoContent() :
+            File(filestream, contenttype, filename, enableRangeProcessing: true);
     }
 }

@@ -9,6 +9,7 @@ using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Medical_E_Commerce.Service.Admin;
 using Medical_E_Commerce.Service.Auth;
+using Medical_E_Commerce.Service.Roles;
 using Medical_E_Commerce.Service.UserService;
 using Medical_E_Commerce.Setting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +33,7 @@ public static class DependencyInjection
         services.AddScoped<IEmailSender, EmailService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAdminService, AdminService>();
+        services.AddScoped<IRoleService, RoleService>();
 
         services
             .AddSwagger()
@@ -102,6 +104,11 @@ public static class DependencyInjection
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
 
         services.Configure<MainSettings>(configuration.GetSection(nameof(MainSettings)));
+
+        services.AddOptions<JwtOptions>()
+            .BindConfiguration(JwtOptions.SectionName)
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         var Jwtsetting = configuration.GetSection("Jwt").Get<JwtOptions>();
 

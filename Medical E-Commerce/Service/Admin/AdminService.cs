@@ -6,11 +6,13 @@ using Medical_E_Commerce.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Medical_E_Commerce.Persistence;
+using Medical_E_Commerce.Service.Roles;
 
 namespace Medical_E_Commerce.Service.Admin;
 
-public class AdminService(UserManager<ApplicationUser> manager , ApplicationDbcontext dbcontext) : IAdminService
+public class AdminService(UserManager<ApplicationUser> manager , ApplicationDbcontext dbcontext , IRoleService roleService) : IAdminService
 {
+    private readonly IRoleService roleService = roleService;
 
     public async Task<Result<UserResponse>> AddUserAsync(CreateUserRequest request)
     {
