@@ -8,6 +8,7 @@ using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Medical_E_Commerce.Service.Auth;
+using Medical_E_Commerce.Service.UserService;
 using Medical_E_Commerce.Setting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +29,7 @@ public static class DependencyInjection
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailSender, EmailService>();
+        services.AddScoped<IUserService, UserService>();
 
         services
             .AddSwagger()
