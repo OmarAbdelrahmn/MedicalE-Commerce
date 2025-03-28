@@ -8,6 +8,7 @@ using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Persistence;
 using Medical_E_Commerce.Service.Admin;
+using Medical_E_Commerce.Service.Article;
 using Medical_E_Commerce.Service.Auth;
 using Medical_E_Commerce.Service.Roles;
 using Medical_E_Commerce.Service.UserService;
@@ -34,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAdminService, AdminService>();
         services.AddScoped<IRoleService, RoleService>();
+        services.AddScoped<IArticleService, ArticleService>();
 
         services
             .AddSwagger()
