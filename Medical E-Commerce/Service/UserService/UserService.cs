@@ -27,7 +27,6 @@ public class UserService(UserManager<ApplicationUser> manager
 
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
     }
-
     public async Task<Result<UserProfileResponse>> GetUserProfile(string id)
     {
         var user = await manager.Users
@@ -38,7 +37,6 @@ public class UserService(UserManager<ApplicationUser> manager
 
         return Result.Success(user);
     }
-
     public async Task<Result> UpdateUserProfile(string id, UpdateUserProfileRequest request)
     {
         //var user = await manager.FindByIdAsync(id);
