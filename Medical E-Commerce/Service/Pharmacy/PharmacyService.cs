@@ -14,6 +14,7 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
         var pharmacy = await dbcontext.Pharmacies
             .Include(c => c.Items)
             .ProjectToType<PharmacyResponse>()
+            .AsNoTracking()
             .ToListAsync();
 
         if (pharmacy is null)
