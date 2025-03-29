@@ -9,6 +9,21 @@ namespace Medical_E_Commerce.Service.Pharmacy;
 
 public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
 {
+    public async Task<Result<PharmacyResponse>> AddAsync(PharmacyRequest request)
+    {
+        var PhamacyNameIsExist = await dbcontext.Pharmacies.AnyAsync(c => c.Name == request.Name);
+
+        if (PhamacyNameIsExist)
+            return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmacyNameIsExist);
+
+        var pharmacy = request.Adapt<Entities.Pharmacy>();
+
+        await dbcontext.Pharmacies.AddAsync(pharmacy);
+        await dbcontext.SaveChangesAsync();
+
+        return Result.Success(pharmacy.Adapt<PharmacyResponse>());
+    }
+
     public async Task<Result<IEnumerable<PharmacyResponse>>> GetAllAsync()
     {
         var pharmacy = await dbcontext.Pharmacies
@@ -50,5 +65,29 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
             return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmcayNotFound);
 
         return Result.Success(pharmacy);
+    }
+
+    public async Task<Result<PharmacyResponse>> UpdateAsync(int Id, PharmacyRequest request)
+    {
+
+        var PhamacyIsExist = await dbcontext.Pharmacies.AnyAsync(c => c.Name == request.Name && c.Id != Id );
+
+        if (PhamacyIsExist)
+            return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmacyNameIsExist);
+
+        var pharmacy = await dbcontext.Pharmacies.FindAsync(Id);
+
+        pharmacy!.Location = request.Location;
+        pharmacy.ImageURL = request.ImageURL;
+        pharmacy.Name = request.Name;
+        pharmacy.PhoneNumbers = request.PhoneNumbers;
+        pharmacy.WhatsUrl = request.WhatsUrl;
+        pharmacy.MapsLocation = request.MapsLocation;
+
+
+        dbcontext.Pharmacies.Update(pharmacy);
+        await dbcontext.SaveChangesAsync();
+
+        return Result.Success(pharmacy.Adapt<PharmacyResponse>());
     }
 }
