@@ -1,4 +1,5 @@
 ﻿using Medical_E_Commerce.Abstractions;
+using Medical_E_Commerce.Contracts.Pharmacy;
 using Medical_E_Commerce.Service.Pharmacy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,26 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     public async Task<IActionResult> GetAsync()
     {
         var result = await service.GetAllAsync();
+
+        return result.IsSuccess ?
+            Ok(result.Value)
+            : result.ToProblem();
+    }
+    
+    [HttpPost("")]
+    public async Task<IActionResult> AddAsync([FromBody] PharmacyRequest request)
+    {
+        var result = await service.AddAsync(request);
+
+        return result.IsSuccess ?
+            Ok(result.Value)
+            : result.ToProblem();
+    }
+    
+    [HttpPut("{Id}")]
+    public async Task<IActionResult> UpdateAsync([FromRoute]int Id , [FromBody] PharmacyRequest request)
+    {
+        var result = await service.UpdateAsync(Id,request);
 
         return result.IsSuccess ?
             Ok(result.Value)
