@@ -1,17 +1,19 @@
 ﻿using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Contracts.Pharmacy;
 using Medical_E_Commerce.Service.Pharmacy;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class PharmacyController(IPharmacyService service) : ControllerBase
 {
     private readonly IPharmacyService service = service;
 
     [HttpGet("by-name/{Name}")]
+    [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetByNameAsync(string Name)
     {
         var result = await service.GetByNameAsync(Name);
@@ -22,6 +24,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     }
     
     [HttpGet("by-id/{id}")]
+    [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {
         var result = await service.GetByIdAsync(id);
@@ -32,6 +35,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     }
     
     [HttpGet("")]
+    [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetAsync()
     {
         var result = await service.GetAllAsync();
@@ -42,6 +46,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     }
     
     [HttpPost("")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddAsync([FromBody] PharmacyRequest request)
     {
         var result = await service.AddAsync(request);
@@ -52,6 +57,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     }
     
     [HttpPut("{Id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateAsync([FromRoute]int Id , [FromBody] PharmacyRequest request)
     {
         var result = await service.UpdateAsync(Id,request);

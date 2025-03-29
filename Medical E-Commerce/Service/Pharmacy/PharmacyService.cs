@@ -53,18 +53,18 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
  
     }
 
-    public async Task<Result<PharmacyResponse>> GetByNameAsync(string name)
+    public async Task<Result<IEnumerable<PharmacyResponse>>> GetByNameAsync(string name)
     {
         var pharmacy = await dbcontext.Pharmacies
             .Include(c => c.Items)
             .Where(c => c.Name.Contains(name))
             .ProjectToType<PharmacyResponse>()
-            .SingleOrDefaultAsync();
+            .ToListAsync();
 
         if (pharmacy is null)
-            return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmcayNotFound);
+            return Result.Failure<IEnumerable<PharmacyResponse>>(PharmacyErrors.PharmcayNotFound);
 
-        return Result.Success(pharmacy);
+        return Result.Success<IEnumerable<PharmacyResponse>>(pharmacy);
     }
 
     public async Task<Result<PharmacyResponse>> UpdateAsync(int Id, PharmacyRequest request)
