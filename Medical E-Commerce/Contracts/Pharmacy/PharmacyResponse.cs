@@ -12,5 +12,5 @@ public record PharmacyResponse
      string Location ,
      string MapsLocation ,
      string WorkTime ,
-     IList<ItemResponse> ItemResponse
+     IList<ItemResponse> Items
     );

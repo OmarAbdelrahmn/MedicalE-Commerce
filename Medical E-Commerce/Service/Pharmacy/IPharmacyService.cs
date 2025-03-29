@@ -7,4 +7,5 @@ public interface IPharmacyService
 {
     Task<Result<PharmacyResponse>> GetByNameAsync(string name);
     Task<Result<PharmacyResponse>> GetByIdAsync(int Id);
+    Task<Result<IEnumerable<PharmacyResponse>>> GetAllAsync();
 }
