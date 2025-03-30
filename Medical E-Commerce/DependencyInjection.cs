@@ -1,28 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using Hangfire;
-using Mapster;
-using MapsterMapper;
-using Medical_E_Commerce.Authentication;
-using Medical_E_Commerce.Contracts.Auth;
-using Medical_E_Commerce.Entities;
-using Medical_E_Commerce.Persistence;
-using Medical_E_Commerce.Service.Admin;
-using Medical_E_Commerce.Service.Article;
-using Medical_E_Commerce.Service.Auth;
-using Medical_E_Commerce.Service.Cart;
-using Medical_E_Commerce.Service.Item;
-using Medical_E_Commerce.Service.Pharmacy;
-using Medical_E_Commerce.Service.Roles;
-using Medical_E_Commerce.Service.UserService;
-using Medical_E_Commerce.Setting;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
-using System.Text;
+﻿
 
 namespace Medical_E_Commerce;
 
