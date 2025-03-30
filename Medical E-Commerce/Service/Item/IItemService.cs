@@ -9,6 +9,6 @@ public interface IItemService
     Task<Result<IEnumerable<ItemResponse>>> GetByName(int PharmacyId , string Name);
     Task<Result<IEnumerable<ItemResponse>>> GetAllCare(int PharmacyId);
     Task<Result<IEnumerable<ItemResponse>>> GetAllMedicine(int PharmacyId);
-    Task<Result<IEnumerable<ItemResponse>>> AddAsync(int PharmacyId , ItemRequest request);
-    Task<Result<IEnumerable<ItemResponse>>> UpdateAsync(int PharmacyId , ItemRequest request);
+    Task<Result<ItemResponse>> AddAsync(int PharmacyId , ItemRequest request);
+    Task<Result<ItemResponse>> UpdateAsync(int PharmacyId , ItemRequest request);
 }
