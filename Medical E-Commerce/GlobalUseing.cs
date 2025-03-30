@@ -1,1 +1,25 @@
-﻿
+﻿global using FluentValidation;
+global using FluentValidation.AspNetCore;
+global using Hangfire;
+global using Mapster;
+global using MapsterMapper;
+global using Medical_E_Commerce.Authentication;
+global using Medical_E_Commerce.Contracts.Auth;
+global using Medical_E_Commerce.Entities;
+global using Medical_E_Commerce.Persistence;
+global using Medical_E_Commerce.Service.Admin;
+global using Medical_E_Commerce.Service.Article;
+global using Medical_E_Commerce.Service.Auth;
+global using Medical_E_Commerce.Service.Cart;
+global using Medical_E_Commerce.Service.Item;
+global using Medical_E_Commerce.Service.Pharmacy;
+global using Medical_E_Commerce.Service.Roles;
+global using Medical_E_Commerce.Service.UserService;
+global using Medical_E_Commerce.Setting;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.UI.Services;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Reflection;
+global using System.Text;
