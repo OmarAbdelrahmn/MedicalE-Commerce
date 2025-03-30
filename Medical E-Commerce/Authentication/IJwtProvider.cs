@@ -1,6 +1,4 @@
-﻿using Medical_E_Commerce.Entities;
-
-namespace Medical_E_Commerce.Authentication;
+﻿namespace Medical_E_Commerce.Authentication;
 
 public interface IJwtProvider
 {

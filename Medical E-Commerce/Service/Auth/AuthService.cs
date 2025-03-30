@@ -1,19 +1,9 @@
-﻿using Hangfire;
-using Mapster;
-using Medical_E_Commerce.Abstractions;
+﻿using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Consts;
 using Medical_E_Commerce.Abstractions.Errors;
-using Medical_E_Commerce.Authentication;
-using Medical_E_Commerce.Contracts.Auth;
-using Medical_E_Commerce.Entities;
 using Medical_E_Commerce.Helpers;
-using Medical_E_Commerce.Persistence;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace Medical_E_Commerce.Service.Auth;
 

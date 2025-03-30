@@ -1,7 +1,6 @@
 ﻿using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Consts;
 using Medical_E_Commerce.Contracts.Article;
-using Medical_E_Commerce.Service.Article;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,5 @@
 ﻿using MailKit.Net.Smtp;
 using MailKit.Security;
-using Medical_E_Commerce.Setting;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
 namespace Medical_E_Commerce.Contracts.Auth;

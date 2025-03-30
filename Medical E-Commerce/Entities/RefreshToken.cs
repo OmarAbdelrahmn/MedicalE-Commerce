@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Medical_E_Commerce.Entities;
+﻿namespace Medical_E_Commerce.Entities;
 [Owned]
 public class RefreshToken
 {

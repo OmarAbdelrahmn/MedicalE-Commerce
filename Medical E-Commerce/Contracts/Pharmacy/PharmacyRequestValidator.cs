@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Medical_E_Commerce.Contracts.Pharmacy;
+﻿namespace Medical_E_Commerce.Contracts.Pharmacy;
 
 public class PharmacyRequestValidator : AbstractValidator<PharmacyRequest>
 {

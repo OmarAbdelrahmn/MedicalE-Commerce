@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Medical_E_Commerce.Contracts.Admin;
+﻿namespace Medical_E_Commerce.Contracts.Admin;
 
 public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
 {

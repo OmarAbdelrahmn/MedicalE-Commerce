@@ -2,7 +2,6 @@
 using Medical_E_Commerce.Contracts.Files;
 using Medical_E_Commerce.Contracts.User;
 using Medical_E_Commerce.Extensions;
-using Medical_E_Commerce.Service.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

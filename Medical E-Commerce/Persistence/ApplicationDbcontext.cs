@@ -1,8 +1,5 @@
-﻿using Medical_E_Commerce.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Reflection;
 
 namespace Medical_E_Commerce.Persistence;
 

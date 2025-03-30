@@ -1,9 +1,6 @@
-﻿using Mapster;
-using Medical_E_Commerce.Contracts.Admin;
-using Medical_E_Commerce.Contracts.Auth;
+﻿using Medical_E_Commerce.Contracts.Admin;
 using Medical_E_Commerce.Contracts.Item;
 using Medical_E_Commerce.Contracts.Pharmacy;
-using Medical_E_Commerce.Entities;
 
 namespace Medical_E_Commerce.Mapping;
 

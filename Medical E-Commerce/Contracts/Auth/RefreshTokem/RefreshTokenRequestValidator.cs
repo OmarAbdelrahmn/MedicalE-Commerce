@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Medical_E_Commerce.Contracts.Auth.RefreshTokem;
+﻿namespace Medical_E_Commerce.Contracts.Auth.RefreshTokem;
 
 public class RefreshTokenRequestValidator : AbstractValidator<RefreshTokenRequest>
 {

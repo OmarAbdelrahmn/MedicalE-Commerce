@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Medical_E_Commerce.Setting;
-
-namespace Medical_E_Commerce.Contracts.Files.Common;
+﻿namespace Medical_E_Commerce.Contracts.Files.Common;
 
 public class FileSizeValidator : AbstractValidator<IFormFile>
 {

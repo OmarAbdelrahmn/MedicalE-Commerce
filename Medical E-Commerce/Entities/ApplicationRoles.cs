@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Medical_E_Commerce.Entities;
+﻿namespace Medical_E_Commerce.Entities;
 
 public class ApplicationRoles : IdentityRole
 {

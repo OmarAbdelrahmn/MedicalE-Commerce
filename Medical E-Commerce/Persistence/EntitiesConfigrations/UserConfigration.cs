@@ -1,7 +1,4 @@
 ﻿using Medical_E_Commerce.Abstractions.Consts;
-using Medical_E_Commerce.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Medical_E_Commerce.Persistence.EntitiesConfigrations;

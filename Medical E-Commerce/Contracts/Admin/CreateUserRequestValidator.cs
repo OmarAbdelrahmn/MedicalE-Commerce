@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Medical_E_Commerce.Abstractions.Consts;
+﻿using Medical_E_Commerce.Abstractions.Consts;
 
 namespace Medical_E_Commerce.Contracts.Admin;
 

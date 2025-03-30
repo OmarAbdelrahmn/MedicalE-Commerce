@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Medical_E_Commerce.Contracts.User;
+﻿namespace Medical_E_Commerce.Contracts.User;
 
 public class UpdateUserProfileValidator : AbstractValidator<UpdateUserProfileRequest>
 {

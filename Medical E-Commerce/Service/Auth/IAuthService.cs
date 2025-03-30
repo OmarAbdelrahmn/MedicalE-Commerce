@@ -1,5 +1,4 @@
 ﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Contracts.Auth;
 
 
 namespace Medical_E_Commerce.Service.Auth;

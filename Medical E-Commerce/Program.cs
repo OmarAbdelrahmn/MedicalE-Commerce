@@ -1,4 +1,3 @@
-using Hangfire;
 using Medical_E_Commerce;
 using Serilog;
 

@@ -2,7 +2,6 @@
 using Medical_E_Commerce.Abstractions.Consts;
 using Medical_E_Commerce.Contracts.CartItem;
 using Medical_E_Commerce.Extensions;
-using Medical_E_Commerce.Service.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
