@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Medical_E_Commerce.Contracts.Admin;
 using Medical_E_Commerce.Contracts.Auth;
+using Medical_E_Commerce.Contracts.Item;
 using Medical_E_Commerce.Contracts.Pharmacy;
 using Medical_E_Commerce.Entities;
 
@@ -15,6 +16,9 @@ public class MappingConfigration : IRegister
             .Map(des => des.UserAddress, sour => sour.UserAddress);
         
         config.NewConfig<Pharmacy, PharmacyResponse>()
+            .Map(des => des.ImageURL, sour => sour.ImageURL);
+        
+        config.NewConfig<Item, ItemResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
 
 

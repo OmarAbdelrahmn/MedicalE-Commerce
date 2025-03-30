@@ -1,4 +1,5 @@
 ﻿using Medical_E_Commerce.Abstractions;
+using Medical_E_Commerce.Contracts.Item;
 using Medical_E_Commerce.Service.Item;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,18 @@ public class ItemsController(IItemService service) : ControllerBase
             Ok(result.Value) :
             result.ToProblem();
     }
-    
+
+    [HttpGet("")]
+    [Authorize(Roles = "Member,Admin")]
+    public async Task<IActionResult> GetAll(int PharmacyId)
+    {
+        var result = await service.GetAll(PharmacyId);
+
+        return result.IsSuccess ?
+            Ok(result.Value) :
+            result.ToProblem();
+    }
+
     [HttpGet("medicine")]
     [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetAllMedicines(int PharmacyId)
@@ -49,6 +61,28 @@ public class ItemsController(IItemService service) : ControllerBase
     public async Task<IActionResult> GetbyName(int PharmacyId , string Name)
     {
         var result = await service.GetByName(PharmacyId , Name);
+
+        return result.IsSuccess ?
+            Ok(result.Value) :
+            result.ToProblem();
+    }
+
+    [HttpPost("")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AddItems(int PharmacyId, ItemRequest request)
+    {
+        var result = await service.AddAsync(PharmacyId,request);
+
+        return result.IsSuccess ?
+            Ok(result.Value) :
+            result.ToProblem();
+    }
+
+    [HttpPut("{ItemId}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> UpdateItems(int PharmacyId,int ItemId, ItemRequest request)
+    {
+        var result = await service.UpdateAsync(PharmacyId,ItemId, request);
 
         return result.IsSuccess ?
             Ok(result.Value) :
