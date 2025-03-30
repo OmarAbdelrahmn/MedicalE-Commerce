@@ -15,11 +15,11 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
     private readonly UserManager<ApplicationUser> manager = manager;
     private readonly ApplicationDbcontext dbcontext = dbcontext;
 
-    public async Task<Result> AddItem(string UserId ,AddCartItemToCart Item)
+    public async Task<Result> AddItem(string UserId, AddCartItemToCart Item)
     {
-        var cart = await dbcontext.Carts.Where(c=>c.UserId == UserId).SingleOrDefaultAsync();
+        var cart = await dbcontext.Carts.Where(c => c.UserId == UserId).SingleOrDefaultAsync();
 
-        if (cart == null) 
+        if (cart == null)
             return Result.Failure(CartErrors.CartNotFound);
 
         cart.Items!.Add(new Entities.CartItem()
@@ -63,7 +63,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         {
             UserId = UserId
         };
-        
+
         await dbcontext.AddAsync(cart);
         await dbcontext.SaveChangesAsync();
 
@@ -72,11 +72,11 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
 
     public async Task<Result<CartResopse>> Show(string UserId)
     {
-        var cart = await dbcontext.Carts.Where(c=>c.UserId == UserId)
-            .Select(c=> new CartResopse(
+        var cart = await dbcontext.Carts.Where(c => c.UserId == UserId)
+            .Select(c => new CartResopse(
                 c.Id,
                 c.UserId,
-                c.Items!.Select(r=>new CartItemResponse(
+                c.Items!.Select(r => new CartItemResponse(
                     r.Id,
                     r.Count,
                     r.ItemId,
@@ -85,9 +85,9 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
                 ).ToList()))
             .SingleOrDefaultAsync();
 
-        if(cart == null)
+        if (cart == null)
             return Result.Failure<CartResopse>(CartErrors.CartNotFound);
 
-       return Result.Success(cart);
+        return Result.Success(cart);
     }
 }

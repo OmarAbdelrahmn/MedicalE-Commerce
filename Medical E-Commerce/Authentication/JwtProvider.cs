@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
 namespace Medical_E_Commerce.Authentication;
 
 public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider

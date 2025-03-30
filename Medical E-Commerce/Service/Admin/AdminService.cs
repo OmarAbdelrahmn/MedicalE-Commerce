@@ -1,16 +1,16 @@
 ﻿using Mapster;
-using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Abstractions;
+using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Contracts.Admin;
 using Medical_E_Commerce.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Medical_E_Commerce.Persistence;
 using Medical_E_Commerce.Service.Roles;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Medical_E_Commerce.Service.Admin;
 
-public class AdminService(UserManager<ApplicationUser> manager , ApplicationDbcontext dbcontext , IRoleService roleService) : IAdminService
+public class AdminService(UserManager<ApplicationUser> manager, ApplicationDbcontext dbcontext, IRoleService roleService) : IAdminService
 {
     private readonly IRoleService roleService = roleService;
 

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Medical_E_Commerce.Service.UserService;
 
-public class UserService(UserManager<ApplicationUser> manager 
-    , ApplicationDbcontext dbcontext 
+public class UserService(UserManager<ApplicationUser> manager
+    , ApplicationDbcontext dbcontext
     , IWebHostEnvironment webHostEnvironment) : IUserService
 {
     private readonly string Imageepath = $"{webHostEnvironment.WebRootPath}/Images";
@@ -69,7 +69,7 @@ public class UserService(UserManager<ApplicationUser> manager
 
         return (filestream, file.ContentType, file.FileName);
     }
-    public async Task<Guid> UpoadImage(string id , IFormFile file)
+    public async Task<Guid> UpoadImage(string id, IFormFile file)
     {
         var user = await manager.FindByIdAsync(id);
 

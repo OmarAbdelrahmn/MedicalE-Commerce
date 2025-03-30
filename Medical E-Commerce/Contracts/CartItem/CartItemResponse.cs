@@ -2,8 +2,8 @@
 
 public record CartItemResponse
 (
-    int Id ,
-    int Count ,
-    int ItemId ,
-    int CartId 
+    int Id,
+    int Count,
+    int ItemId,
+    int CartId
     );

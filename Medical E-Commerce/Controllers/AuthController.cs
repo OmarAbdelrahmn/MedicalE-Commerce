@@ -2,8 +2,6 @@
 using Medical_E_Commerce.Contracts.Auth;
 using Medical_E_Commerce.Contracts.Auth.RefreshTokem;
 using Medical_E_Commerce.Service.Auth;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;

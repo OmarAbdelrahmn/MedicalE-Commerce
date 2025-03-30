@@ -37,7 +37,7 @@ public class ArticleController(IArticleService service) : ControllerBase
         var ge = await service.GetByNameAsynce(Name, cancellationToken);
         return ge.IsSuccess ? Ok(ge.Value) : ge.ToProblem();
     }
-    
+
     [HttpPost("")]
     [Authorize(Roles = DefaultRoles.Admin)]
     public async Task<IActionResult> Add(ArticleRequest request, CancellationToken cancellationToken)
@@ -45,7 +45,7 @@ public class ArticleController(IArticleService service) : ControllerBase
         var ge = await service.AddAsynce(request, cancellationToken);
         return ge.IsSuccess ? Ok(ge.Value) : ge.ToProblem();
     }
-    
+
     [HttpPut("{id}")]
     [Authorize(Roles = DefaultRoles.Admin)]
     public async Task<IActionResult> Update(int id, ArticleRequest request, CancellationToken cancellationToken)

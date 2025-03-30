@@ -2,7 +2,6 @@
 using Medical_E_Commerce.Contracts.Pharmacy;
 using Medical_E_Commerce.Service.Pharmacy;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;
@@ -22,7 +21,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
             Ok(result.Value)
             : result.ToProblem();
     }
-    
+
     [HttpGet("by-id/{id}")]
     [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetByIdAsync(int id)
@@ -33,7 +32,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
             Ok(result.Value)
             : result.ToProblem();
     }
-    
+
     [HttpGet("")]
     [Authorize(Roles = "Member,Admin")]
     public async Task<IActionResult> GetAsync()
@@ -44,7 +43,7 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
             Ok(result.Value)
             : result.ToProblem();
     }
-    
+
     [HttpPost("")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddAsync([FromBody] PharmacyRequest request)
@@ -55,12 +54,12 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
             Ok(result.Value)
             : result.ToProblem();
     }
-    
+
     [HttpPut("{Id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> UpdateAsync([FromRoute]int Id , [FromBody] PharmacyRequest request)
+    public async Task<IActionResult> UpdateAsync([FromRoute] int Id, [FromBody] PharmacyRequest request)
     {
-        var result = await service.UpdateAsync(Id,request);
+        var result = await service.UpdateAsync(Id, request);
 
         return result.IsSuccess ?
             Ok(result.Value)

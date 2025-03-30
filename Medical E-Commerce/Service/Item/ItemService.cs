@@ -4,7 +4,6 @@ using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Contracts.Item;
 using Medical_E_Commerce.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Medical_E_Commerce.Service.Item;
 
@@ -21,7 +20,7 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
 
         var Item = await dbcontext.Items.Where(c => c.Name == request.Name).SingleOrDefaultAsync();
 
-        if(Item == null)
+        if (Item == null)
         {
             var newitem = new Entities.Item()
             {
@@ -37,11 +36,11 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
             await dbcontext.Items.AddAsync(newitem);
             await dbcontext.SaveChangesAsync();
 
-            var Itemres = new ItemResponse(newitem.Id,newitem.Name,newitem.Type,newitem.ImageURL,newitem.Price,newitem.EffectiveSubstance,newitem.Count,newitem.Brand);
+            var Itemres = new ItemResponse(newitem.Id, newitem.Name, newitem.Type, newitem.ImageURL, newitem.Price, newitem.EffectiveSubstance, newitem.Count, newitem.Brand);
             return Result.Success(Itemres);
         }
 
-        Item.Count = Item.Count + request.Count; 
+        Item.Count = Item.Count + request.Count;
 
         dbcontext.Update(Item);
         await dbcontext.SaveChangesAsync();
@@ -68,26 +67,26 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
 
     public async Task<Result<IEnumerable<ItemResponse>>> GetAllCare(int PharmacyId)
     {
-        var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c=>c.Id == PharmacyId);
+        var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
 
-        if(!PharmacyIsExcists)
+        if (!PharmacyIsExcists)
             return Result.Failure<IEnumerable<ItemResponse>>(PharmacyErrors.PharmcayNotFound);
 
-        var CareItems =await dbcontext.Items
-            .Where(c=>c.PharmacyId == PharmacyId && c.Type == "care")
+        var CareItems = await dbcontext.Items
+            .Where(c => c.PharmacyId == PharmacyId && c.Type == "care")
             .ToListAsync();
 
         return Result.Success<IEnumerable<ItemResponse>>(CareItems.Adapt<IEnumerable<ItemResponse>>());
     }
-    
+
     public async Task<Result<IEnumerable<ItemResponse>>> GetAllMedicine(int PharmacyId)
     {
-        var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c=>c.Id == PharmacyId);
+        var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
 
-        if(!PharmacyIsExcists)
+        if (!PharmacyIsExcists)
             return Result.Failure<IEnumerable<ItemResponse>>(PharmacyErrors.PharmcayNotFound);
 
-        var MedicinItems =await dbcontext.Items.Where(c=>c.PharmacyId == PharmacyId && c.Type == "medicine")
+        var MedicinItems = await dbcontext.Items.Where(c => c.PharmacyId == PharmacyId && c.Type == "medicine")
             .ToListAsync();
 
         return Result.Success<IEnumerable<ItemResponse>>(MedicinItems.Adapt<IEnumerable<ItemResponse>>());
@@ -102,7 +101,7 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
 
         var item = await dbcontext.Items.FindAsync(id);
 
-        if(item == null)
+        if (item == null)
             return Result.Failure<ItemResponse>(ItmesErrors.ItmesNotFound);
 
         return Result.Success(item.Adapt<ItemResponse>());
@@ -116,7 +115,7 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
             return Result.Failure<IEnumerable<ItemResponse>>(PharmacyErrors.PharmcayNotFound);
 
         var item = await dbcontext.Items
-            .Where(c=>c.Name.Contains(Name))
+            .Where(c => c.Name.Contains(Name))
             .ToListAsync();
 
         if (item == null)
@@ -125,7 +124,7 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
         return Result.Success(item.Adapt<IEnumerable<ItemResponse>>());
     }
 
-    public async Task<Result<ItemResponse>> UpdateAsync(int PharmacyId,int ItemId, ItemRequest request)
+    public async Task<Result<ItemResponse>> UpdateAsync(int PharmacyId, int ItemId, ItemRequest request)
     {
         var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
 
@@ -136,12 +135,12 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
 
         if (Item == null)
             return Result.Failure<ItemResponse>(ItmesErrors.noitem);
-        
+
 
         Item.EffectiveSubstance = request.EffectiveSubstance;
         Item.Price = request.Price;
         Item.Name = request.Name;
-        Item.Brand = request.Brand; 
+        Item.Brand = request.Brand;
         Item.Count = request.Count;
         Item.Type = request.Type;
 

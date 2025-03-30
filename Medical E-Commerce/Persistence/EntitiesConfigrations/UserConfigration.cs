@@ -13,7 +13,7 @@ public class UserConfigration : IEntityTypeConfiguration<ApplicationUser>
         builder.Property(c => c.UserFullName)
             .HasMaxLength(50)
             .IsRequired();
-        
+
 
         builder.Property(c => c.UserAddress)
             .HasMaxLength(50)

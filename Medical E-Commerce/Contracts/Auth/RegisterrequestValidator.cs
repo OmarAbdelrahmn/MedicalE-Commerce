@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Medical_E_Commerce.Abstractions.Consts;
-using Microsoft.AspNetCore.Identity.Data;
 
 namespace Medical_E_Commerce.Contracts.Auth;
 

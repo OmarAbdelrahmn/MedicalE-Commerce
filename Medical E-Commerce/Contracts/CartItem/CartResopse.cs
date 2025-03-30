@@ -2,7 +2,7 @@
 
 public record CartResopse
 (
-    int Id ,
-    string UserId ,
+    int Id,
+    string UserId,
      IList<CartItemResponse>? Items
     );

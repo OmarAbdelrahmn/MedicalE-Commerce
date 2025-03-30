@@ -2,7 +2,7 @@
 
 public record ArticleResponse
 (
-     int Id ,
-     string Name ,
+     int Id,
+     string Name,
      string Description
     );

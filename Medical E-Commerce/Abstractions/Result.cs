@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Medical_E_Commerce.Abstractions;
+﻿namespace Medical_E_Commerce.Abstractions;
 
 public class Result
 {

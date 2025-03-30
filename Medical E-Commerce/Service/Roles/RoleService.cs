@@ -1,7 +1,6 @@
 ﻿
 using Mapster;
 using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Consts;
 using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Contracts.Roles;
 using Medical_E_Commerce.Entities;
@@ -35,7 +34,7 @@ public class RoleService(RoleManager<ApplicationRoles> roleManager, ApplicationD
 
         if (result.Succeeded)
             return Result.Success();
-      
+
 
         var error = result.Errors.First();
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));
@@ -81,7 +80,7 @@ public class RoleService(RoleManager<ApplicationRoles> roleManager, ApplicationD
         if (result.Succeeded)
             return Result.Success();
 
-        
+
 
         var error = result.Errors.First();
         return Result.Failure(new Error(error.Code, error.Description, StatusCodes.Status400BadRequest));

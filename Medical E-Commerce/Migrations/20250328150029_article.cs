@@ -24,7 +24,7 @@ namespace Medical_E_Commerce.Migrations
                     table.PrimaryKey("PK_Articles", x => x.Id);
                 });
 
-            
+
         }
 
         /// <inheritdoc />
@@ -33,7 +33,7 @@ namespace Medical_E_Commerce.Migrations
             migrationBuilder.DropTable(
                 name: "Articles");
 
-            
+
         }
     }
 }

@@ -4,7 +4,6 @@ using Medical_E_Commerce.Contracts.User;
 using Medical_E_Commerce.Extensions;
 using Medical_E_Commerce.Service.UserService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;
@@ -42,7 +41,7 @@ public class UserController(IUserService service) : ControllerBase
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImagesAsync([FromForm] UpdoadImagessRequest request)
     {
-        await service.UpoadImage(User.GetUserId()!,request.Image);
+        await service.UpoadImage(User.GetUserId()!, request.Image);
 
         return Created();
     }

@@ -5,7 +5,7 @@ namespace Medical_E_Commerce.Entities;
 public class Item
 {
     public int Id { get; set; }
-    [Length(3,50)]
+    [Length(3, 50)]
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string ImageURL { get; set; } = string.Empty;

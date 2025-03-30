@@ -4,7 +4,6 @@ using Medical_E_Commerce.Contracts.CartItem;
 using Medical_E_Commerce.Extensions;
 using Medical_E_Commerce.Service.Cart;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;
@@ -24,14 +23,14 @@ public class CartController(ICartService service) : ControllerBase
 
         return response.IsSuccess ? Created() : response.ToProblem();
     }
-    
+
     [HttpPost("add-item")]
     [Authorize(Roles = DefaultRoles.Member)]
     public async Task<IActionResult> AddItemCart(AddCartItemToCart Item)
     {
         var UserId = User.GetUserId();
 
-        var response = await service.AddItem(UserId!,Item);
+        var response = await service.AddItem(UserId!, Item);
 
         return response.IsSuccess ? Ok() : response.ToProblem();
     }
@@ -46,7 +45,7 @@ public class CartController(ICartService service) : ControllerBase
 
         return response.IsSuccess ? Ok(response.Value) : response.ToProblem();
     }
-    
+
     [HttpPut("")]
     [Authorize(Roles = DefaultRoles.Member)]
     public async Task<IActionResult> Clear()

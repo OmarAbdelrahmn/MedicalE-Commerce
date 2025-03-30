@@ -17,7 +17,7 @@ public class UploadImageRequestValidator : AbstractValidator<UpdoadImagessReques
             .Must((request, context) =>
             {
                 var extension = Path.GetExtension(request.Image.FileName.ToLower());
-                
+
                 return FileSettings.AllowedImagesExtensions.Contains(extension);
             })
             .WithMessage("file extenion is not allowed ")

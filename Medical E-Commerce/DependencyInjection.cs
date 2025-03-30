@@ -28,10 +28,10 @@ namespace Medical_E_Commerce;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDependency(this IServiceCollection services , IConfiguration configuration)
+    public static IServiceCollection AddDependency(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
-        
+
         services.AddScoped<IJwtProvider, JwtProvider>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IEmailSender, EmailService>();
@@ -90,8 +90,8 @@ public static class DependencyInjection
                .AllowAnyHeader()
                 ));
         return services;
-    } 
-    private static IServiceCollection AddDatabase(this IServiceCollection services , IConfiguration configuration)
+    }
+    private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var ConnectionString = configuration.GetConnectionString("DefaultConnection") ??
             throw new InvalidOperationException("Connection string is not found in the configuration file");
@@ -103,7 +103,7 @@ public static class DependencyInjection
 
     }
     private static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
-    {      
+    {
 
         services.AddIdentity<ApplicationUser, ApplicationRoles>()
             .AddEntityFrameworkStores<ApplicationDbcontext>()

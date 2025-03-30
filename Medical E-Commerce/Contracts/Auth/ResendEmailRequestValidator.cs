@@ -6,7 +6,7 @@ public class ResendEmailRequestValidator : AbstractValidator<ResendEmailRequest>
 {
     public ResendEmailRequestValidator()
     {
-        RuleFor(c=>c.Email)
+        RuleFor(c => c.Email)
             .EmailAddress()
             .NotEmpty();
     }

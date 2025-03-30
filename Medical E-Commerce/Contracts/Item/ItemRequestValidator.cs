@@ -6,22 +6,22 @@ public class ItemRequestValidator : AbstractValidator<ItemRequest>
 {
     public ItemRequestValidator()
     {
-        RuleFor(c=>c.Name)
+        RuleFor(c => c.Name)
             .NotEmpty();
 
-        RuleFor(c=>c.Price)
+        RuleFor(c => c.Price)
             .NotEmpty();
 
-        RuleFor(c=>c.Count)
+        RuleFor(c => c.Count)
             .NotEmpty();
 
-        RuleFor(c=>c.EffectiveSubstance)
+        RuleFor(c => c.EffectiveSubstance)
             .NotEmpty();
 
-        RuleFor(c=>c.Brand)
+        RuleFor(c => c.Brand)
             .NotEmpty();
 
-        RuleFor(c=>c.Type)
+        RuleFor(c => c.Type)
             .NotEmpty();
     }
 }

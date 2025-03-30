@@ -6,17 +6,17 @@ using System.Reflection;
 
 namespace Medical_E_Commerce.Persistence;
 
-public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) : 
-    IdentityDbContext<ApplicationUser,ApplicationRoles,string>(options)
+public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options) :
+    IdentityDbContext<ApplicationUser, ApplicationRoles, string>(options)
 {
 
 
     public DbSet<Pharmacy> Pharmacies { get; set; } = default!;
-    public DbSet<Item> Items{ get; set; } = default!;
-    public DbSet<CartItem> CartItems{ get; set; } = default!;
-    public DbSet<Cart> Carts{ get; set; } = default!;
-    public DbSet<Image> Images{ get; set; } = default!;
-    public DbSet<Article> Articles{ get; set; } = default!;
+    public DbSet<Item> Items { get; set; } = default!;
+    public DbSet<CartItem> CartItems { get; set; } = default!;
+    public DbSet<Cart> Carts { get; set; } = default!;
+    public DbSet<Image> Images { get; set; } = default!;
+    public DbSet<Article> Articles { get; set; } = default!;
 
 
 

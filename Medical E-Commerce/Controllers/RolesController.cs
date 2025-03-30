@@ -3,7 +3,6 @@ using Medical_E_Commerce.Abstractions.Consts;
 using Medical_E_Commerce.Contracts.Roles;
 using Medical_E_Commerce.Service.Roles;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;

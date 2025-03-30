@@ -1,9 +1,9 @@
-﻿using MailKit.Security;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
 using Medical_E_Commerce.Setting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using MailKit.Net.Smtp;
 namespace Medical_E_Commerce.Contracts.Auth;
 
 public class EmailService(IOptions<MainSettings> options) : IEmailSender
