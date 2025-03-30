@@ -17,7 +17,8 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
         if(!PharmacyIsExcists)
             return Result.Failure<IEnumerable<ItemResponse>>(PharmacyErrors.PharmcayNotFound);
 
-        var CareItems =await dbcontext.Items.Where(c=>c.PharmacyId == PharmacyId && c.Type == "care")
+        var CareItems =await dbcontext.Items
+            .Where(c=>c.PharmacyId == PharmacyId && c.Type == "care")
             .ToListAsync();
 
         return Result.Success<IEnumerable<ItemResponse>>(CareItems.Adapt<IEnumerable<ItemResponse>>());
