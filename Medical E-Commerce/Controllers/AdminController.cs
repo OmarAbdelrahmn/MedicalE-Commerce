@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Medical_E_Commerce.Controllers;
 [Route("[controller]")]
 [ApiController]
-[Authorize(Roles = "Admin")]
+//[Authorize(Roles = "Admin")]
 public class AdminController(IAdminService service) : ControllerBase
 {
     [HttpGet("")]
