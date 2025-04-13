@@ -90,6 +90,8 @@ write endpoints Take admin Token only
 | GET    | `/pharmacy/{pharmacyid}/items/medicine`       | Get medicine items in pharmacy       |
 | GET    | `/pharmacy/{pharmacyid}/items/by-id/{id}`     | Get item by ID                       |
 | GET    | `/pharmacy/{pharmacyid}/items/by-name/{name}` | Get item by name                     |
+| GET    | `/pharmacy/items/by-id/{id}`                  | Get item by ID from any pharmacy     |
+| GET    | `/pharmacy/items/by-name/{name}`              | Get item by name from any pharmacy   |
 | PUT    | `/pharmacy/{pharmacyid}/items/{itemid}`       | Update item                          |
 
 ---
