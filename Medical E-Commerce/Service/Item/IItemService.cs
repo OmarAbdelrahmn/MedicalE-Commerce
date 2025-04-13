@@ -6,7 +6,9 @@ namespace Medical_E_Commerce.Service.Item;
 public interface IItemService
 {
     Task<Result<ItemResponse>> GetById(int PharmacyId, int id);
+    Task<Result<ItemResponse>> GetByIdInAllPharmacies(int id);
     Task<Result<IEnumerable<ItemResponse>>> GetByName(int PharmacyId, string Name);
+    Task<Result<IEnumerable<ItemResponse>>> GetByNameInAllPharmacies(string Name);
     Task<Result<IEnumerable<ItemResponse>>> GetAllCare(int PharmacyId);
     Task<Result<IEnumerable<ItemResponse>>> GetAll(int PharmacyId);
     Task<Result<IEnumerable<ItemResponse>>> GetAllMedicine(int PharmacyId);
