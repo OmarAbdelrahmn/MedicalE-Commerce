@@ -11,6 +11,7 @@
 - [Items](#items-endpoints)
 - [Article](#article-endpoints)
 - [Cart](#cart-endpoints)
+- [Fav](#fave-endpoints)
 
 ---
 
@@ -89,12 +90,15 @@ write endpoints Take admin Token only
 | GET    | `/pharmacy/{pharmacyid}/items/medicine`       | Get medicine items in pharmacy       |
 | GET    | `/pharmacy/{pharmacyid}/items/by-id/{id}`     | Get item by ID                       |
 | GET    | `/pharmacy/{pharmacyid}/items/by-name/{name}` | Get item by name                     |
+| GET    | `/pharmacy/items/by-id/{id}`                  | Get item by ID from any pharmacy     |
+| GET    | `/pharmacy/items/by-name/{name}`              | Get item by name from any pharmacy   |
 | PUT    | `/pharmacy/{pharmacyid}/items/{itemid}`       | Update item                          |
 
 ---
+
+## Article Endpoints
 read endpoints Take User and Admin Token
 write endpoints Take admin Token only
-## Article Endpoints
 | Method | Endpoint                   | Description                          |
 |--------|----------------------------|--------------------------------------|
 | GET    | `/article`                 | Get all articles                     |
@@ -104,11 +108,22 @@ write endpoints Take admin Token only
 | PUT    | `/article/{id}`            | Update article                       |
 
 ---
-User Token Only
 ## Cart Endpoints
+User Token Only
+
 | Method | Endpoint           | Description                          |
 |--------|--------------------|--------------------------------------|
 | POST   | `/cart`            | Create cart                          |
 | GET    | `/cart`            | Get cart contents                    |
 | PUT    | `/cart`            | clear cart                           |
 | POST   | `/cart/add-item`   | Add item to cart                     |
+
+---
+## Fav Endpoints
+User Token Only
+| Method   | Endpoint          | Description                          | Parameters               |
+|----------|-------------------|--------------------------------------|--------------------------|
+| `POST`   | `/Fav/{itemId}`   | Add item to favorites                | `itemId` (path, string)  |
+| `DELETE` | `/Fav`            | Remove all favorite items            | None                     |
+| `GET`    | `/Fav`            | Retrieve all favorite items          | None                     |
+
