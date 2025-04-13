@@ -104,6 +104,16 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
         return Result.Success(item.Adapt<ItemResponse>());
     }
 
+    public async Task<Result<ItemDetailsResponse>> GetByIdInAllPharmacies(int id)
+    {
+        var item = await dbcontext.Items.FindAsync(id);
+
+        if (item == null)
+            return Result.Failure<ItemDetailsResponse>(ItmesErrors.ItmesNotFound);
+
+        return Result.Success(item.Adapt<ItemDetailsResponse>());
+    }
+
     public async Task<Result<IEnumerable<ItemResponse>>> GetByName(int PharmacyId, string Name)
     {
         var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
@@ -119,6 +129,18 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
             return Result.Failure<IEnumerable<ItemResponse>>(ItmesErrors.ItmesNotFound);
 
         return Result.Success(item.Adapt<IEnumerable<ItemResponse>>());
+    }
+
+    public async Task<Result<IEnumerable<ItemDetailsResponse>>> GetByNameInAllPharmacies(string Name)
+    {
+        var item = await dbcontext.Items
+            .Where(c => c.Name.Contains(Name))
+            .ToListAsync();
+
+        if (item == null)
+            return Result.Failure<IEnumerable<ItemDetailsResponse>>(ItmesErrors.ItmesNotFound);
+
+        return Result.Success(item.Adapt<IEnumerable<ItemDetailsResponse>>());
     }
 
     public async Task<Result<ItemResponse>> UpdateAsync(int PharmacyId, int ItemId, ItemRequest request)
