@@ -4,5 +4,6 @@ public class CartErrors
 {
     public static readonly Error CartIsAlreadyExsicts = new("Cart.CartError", "This user Already have a Cart", StatusCodes.Status405MethodNotAllowed);
     public static readonly Error CartNotFound = new("Cart.NotFound", "Cart Not Found , Add one first", StatusCodes.Status404NotFound);
+    public static readonly Error FavNotFound = new("fav.NotFound", "no favourite items found, Add one first", StatusCodes.Status404NotFound);
 
 }
