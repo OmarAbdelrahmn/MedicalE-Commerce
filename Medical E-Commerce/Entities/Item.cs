@@ -16,4 +16,6 @@ public class Item
 
     public int PharmacyId { get; set; }
     public Pharmacy Pharmacy { get; set; } = default!;
+
+    public ICollection<Fav> Favs { get; set; } = [];
 }

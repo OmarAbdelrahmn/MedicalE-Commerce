@@ -53,6 +53,6 @@ public class CartController(ICartService service) : ControllerBase
 
         var response = await service.Clear(UserId!);
 
-        return response.IsSuccess ? Ok(response.Value) : response.ToProblem();
+        return response.IsSuccess ? Ok() : response.ToProblem();
     }
 }

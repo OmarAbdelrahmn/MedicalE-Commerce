@@ -32,7 +32,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         return Result.Failure(new Error("CartError", "some thing went wrong", StatusCodes.Status500InternalServerError));
     }
 
-    public async Task<Result<CartResopse>> Clear(string UserId)
+    public async Task<Result> Clear(string UserId)
     {
         var cart = await dbcontext.Carts.Where(c => c.UserId == UserId).SingleOrDefaultAsync();
 
@@ -43,7 +43,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
             .Where(c => c.CartId == cart.Id)
             .ExecuteDeleteAsync();
 
-        return Result.Success(cart.Adapt<CartResopse>());
+        return Result.Success();
     }
 
     public async Task<Result> CreateCart(string UserId)

@@ -1,4 +1,5 @@
 ﻿using Medical_E_Commerce.Contracts.Admin;
+using Medical_E_Commerce.Contracts.Fav;
 using Medical_E_Commerce.Contracts.Item;
 using Medical_E_Commerce.Contracts.Pharmacy;
 
@@ -21,6 +22,10 @@ public class MappingConfigration : IRegister
         
         config.NewConfig<Item, ItemDetailsResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
+        
+        
+        config.NewConfig<List<int> , FavResponse >()
+            .Map(des => des.ItemsIds, sour => sour);
 
 
         config.NewConfig<(ApplicationUser user, IList<string> userroles), UserResponse>()
