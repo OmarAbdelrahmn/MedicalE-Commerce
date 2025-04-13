@@ -1,5 +1,7 @@
 ﻿
 
+using Medical_E_Commerce.Service.Fav;
+
 namespace Medical_E_Commerce;
 
 public static class DependencyInjection
@@ -18,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IPharmacyService, PharmacyService>();
         services.AddScoped<IItemService, ItemService>();
         services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IFavService, FavService>();
 
         services
             .AddSwagger()
