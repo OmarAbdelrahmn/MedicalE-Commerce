@@ -17,6 +17,10 @@ public class MappingConfigration : IRegister
 
         config.NewConfig<Item, ItemResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
+        
+        
+        config.NewConfig<Item, ItemDetailsResponse>()
+            .Map(des => des.ImageURL, sour => sour.ImageURL);
 
 
         config.NewConfig<(ApplicationUser user, IList<string> userroles), UserResponse>()
