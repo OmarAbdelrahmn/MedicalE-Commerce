@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace Medical_E_Commerce.Controllers;
 [Route("[controller]")]
 [ApiController]
-public class PharmacyController(IPharmacyService service) : ControllerBase
+public class PharmacyController(IPharmacyService service , IItemService service1) : ControllerBase
 {
     private readonly IPharmacyService service = service;
+    private readonly IItemService service1 = service1;
 
     [HttpGet("by-name/{Name}")]
     [Authorize(Roles = "Member,Admin")]
@@ -59,6 +60,29 @@ public class PharmacyController(IPharmacyService service) : ControllerBase
     public async Task<IActionResult> UpdateAsync([FromRoute] int Id, [FromBody] PharmacyRequest request)
     {
         var result = await service.UpdateAsync(Id, request);
+
+        return result.IsSuccess ?
+            Ok(result.Value)
+            : result.ToProblem();
+    }
+
+    [HttpGet("item/by-name/{Name}")]
+    [Authorize(Roles = "Member,Admin")]
+    public async Task<IActionResult> GetByAnyItemAsync(string Name)
+    {
+        var result = await service1.GetByNameInAllPharmacies(Name);
+
+        return result.IsSuccess ?
+            Ok(result.Value)
+            : result.ToProblem();
+    }
+
+
+    [HttpGet("item/by-id/{id}")]
+    [Authorize(Roles = "Member,Admin")]
+    public async Task<IActionResult> GetByAnyItemAsync(int id)
+    {
+        var result = await service1.GetByIdInAllPharmacies(id);
 
         return result.IsSuccess ?
             Ok(result.Value)
