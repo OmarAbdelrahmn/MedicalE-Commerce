@@ -45,13 +45,25 @@ public class CartController(ICartService service) : ControllerBase
         return response.IsSuccess ? Ok(response.Value) : response.ToProblem();
     }
 
-    [HttpPut("")]
+    [HttpPut("clear")]
     [Authorize(Roles = DefaultRoles.Member)]
     public async Task<IActionResult> Clear()
     {
         var UserId = User.GetUserId();
 
         var response = await service.Clear(UserId!);
+
+        return response.IsSuccess ? Ok() : response.ToProblem();
+    }
+    
+    
+    [HttpPut("pay")]
+    [Authorize(Roles = DefaultRoles.Member)]
+    public async Task<IActionResult> Pay()
+    {
+        var UserId = User.GetUserId();
+
+        var response = await service.Pay(UserId!);
 
         return response.IsSuccess ? Ok() : response.ToProblem();
     }

@@ -88,4 +88,15 @@ public class PharmacyController(IPharmacyService service , IItemService service1
             Ok(result.Value)
             : result.ToProblem();
     }
+
+    [HttpGet("or-item/{Name}")]
+    [Authorize(Roles = "Member,Admin")]
+    public async Task<IActionResult> GettwoAsync(string Name)
+    {
+        var result = await service.GetalAsync(Name);
+
+        return result.IsSuccess ?
+            Ok(result.Value)
+            : result.ToProblem();
+    }
 }

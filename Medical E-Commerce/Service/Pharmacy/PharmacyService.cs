@@ -1,5 +1,7 @@
-﻿using Medical_E_Commerce.Abstractions;
+﻿using MailKit.Search;
+using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Errors;
+using Medical_E_Commerce.Contracts;
 using Medical_E_Commerce.Contracts.Pharmacy;
 
 namespace Medical_E_Commerce.Service.Pharmacy;
@@ -33,6 +35,25 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
             return Result.Failure<IEnumerable<PharmacyResponse>>(PharmacyErrors.PharmcayNotFound);
 
         return Result.Success<IEnumerable<PharmacyResponse>>(pharmacy);
+    }
+
+    public async Task<Result<SearchResultGroup>> GetalAsync(string name)
+    {
+        var result = new SearchResultGroup
+        {
+            Pharmacies = await dbcontext.Pharmacies
+         .Where(p => p.Name.Contains(name))
+         .ToListAsync(),
+
+            Items = await dbcontext.Items
+         .Where(i => i.Name.Contains(name))
+         .ToListAsync()
+        };
+
+        if (result.Pharmacies.Count == 0 && result.Items.Count == 0)
+            return Result.Failure<SearchResultGroup>(PharmacyErrors.No);
+
+        return Result.Success(result);
     }
 
     public async Task<Result<PharmacyResponse>> GetByIdAsync(int Id)

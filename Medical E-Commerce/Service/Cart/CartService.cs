@@ -64,6 +64,52 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         return Result.Success();
     }
 
+    public async Task<Result> Pay(string UserId)
+    {
+        var cart = await dbcontext.Carts.Where(c => c.UserId == UserId).SingleOrDefaultAsync();
+
+        if (cart == null)
+            return Result.Failure<CartResopse>(CartErrors.CartNotFound);
+
+        var cartItems = await dbcontext.CartItems.AnyAsync(c => c.CartId == cart.Id);
+
+        if (!cartItems)
+            return Result.Failure<CartResopse>(CartErrors.NoItem);
+
+        var OrderPrice = await dbcontext.CartItems
+            .Where(c => c.CartId == cart.Id)
+            .Select(c => c.Item.Price * c.Count).SumAsync();
+
+        var pharmayID = cart.Items!.Select(c => c.Item.PharmacyId).FirstOrDefault();
+
+        var ItemsId = cart.Items!.Select(c => c.ItemId).ToList();
+
+        var order = new Entities.Order()
+        {
+            UserId = UserId,
+            ItemsId = ItemsId,
+            TotalPrice = OrderPrice,
+            PharmacyId = pharmayID
+        };
+
+        var result = await dbcontext.Orders.AddAsync(order);
+        await dbcontext.SaveChangesAsync();
+
+        if (result == null)
+            return Result.Failure<CartResopse>(CartErrors.somethingwentwrong);
+
+        var dv = await dbcontext.CartItems
+            .Where(c => c.CartId == cart.Id)
+            .ExecuteDeleteAsync();
+
+        if (dv == 0)
+            return Result.Failure<CartResopse>(CartErrors.somethingwentwrong);
+
+
+        return Result.Success();
+        
+    }
+
     public async Task<Result<CartResopse>> Show(string UserId)
     {
         var cart = await dbcontext.Carts.Where(c => c.UserId == UserId)
