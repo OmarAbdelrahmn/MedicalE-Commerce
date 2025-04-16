@@ -2,6 +2,6 @@
 
 public interface INotinficationService
 {
-    Task SendNewPollsNotification();
+    Task SendPharmacyNotification();
 
 }

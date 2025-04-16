@@ -1,4 +1,5 @@
 using Medical_E_Commerce;
+using Medical_E_Commerce.Service.Notifications;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Host.UseSerilog((context, configration) =>
 
     );
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +26,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHangfireDashboard("/jobs");
+
+var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
+using var scope = scopeFactory.CreateScope();
+var notificationService = scope.ServiceProvider.GetRequiredService<INotinficationService>();
+
+RecurringJob.AddOrUpdate("SendPharmacyNotification", () => notificationService.SendPharmacyNotification(), Cron.Weekly);
 
 
 app.UseHttpsRedirection();

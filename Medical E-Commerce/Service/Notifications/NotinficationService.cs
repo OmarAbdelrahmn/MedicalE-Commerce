@@ -17,7 +17,7 @@ public class NotinficationService(
     private readonly IEmailSender emailSender = emailSender;
 
     
-       public async Task SendNewPollsNotification()
+       public async Task SendPharmacyNotification()
         {
         IEnumerable<Entities.Pharmacy> Pharmacy = [];
 
@@ -46,7 +46,7 @@ public class NotinficationService(
                     { "{{url}}", $"{origin}/pharmacy/start/{Pharmacyi.Id}" }
                 };
 
-                var body = EmailBodyBuilder.GenerateEmailBody("Care-Capsole Notification", placeholders);
+                var body = EmailBodyBuilder.GenerateEmailBody("Care.Capsole.Notification", placeholders);
 
                 await emailSender.SendEmailAsync(user.Email!, $"📣 Care-Capsole: Pharmacy - {Pharmacyi.Name}", body);
             }
