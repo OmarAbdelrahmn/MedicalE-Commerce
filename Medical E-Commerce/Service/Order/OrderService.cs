@@ -1,5 +1,7 @@
 ﻿using Medical_E_Commerce.Abstractions;
+using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Contracts;
+using Medical_E_Commerce.Entities;
 
 namespace Medical_E_Commerce.Service.Order;
 
@@ -7,16 +9,29 @@ public class OrderService(ApplicationDbcontext dbcontext) : IOrderService
 {
     private readonly ApplicationDbcontext dbcontext = dbcontext;
 
-    public async Task<Result<OrderResopnse>> GetpharmacyId(int PharmacyId)
+    public async Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(int PharmacyId)
     {
         var orders = await dbcontext.Orders.Where(c => c.PharmacyId == PharmacyId).ToListAsync();
 
         if (orders == null)
-            return Result.Failure<OrderResopnse>();
+            return Result.Failure<IEnumerable<OrderResopnse>>(RolesErrors.Orderno);
+
+        var orres = orders.Adapt<IEnumerable<OrderResopnse>>();
+
+        return Result.Success<IEnumerable<OrderResopnse>>(orres);
     }
 
-    public Task<Result<OrderResopnse>> GetUserId(int Userid)
+    public async Task<Result<IEnumerable<OrderResopnse>>> GetUserId(string Userid)
     {
-        throw new NotImplementedException();
+        var orders = await dbcontext.Orders.Where(c => c.UserId == Userid).ToListAsync();
+
+        if (orders == null)
+            return Result.Failure<IEnumerable<OrderResopnse>>(RolesErrors.Ordernon);
+
+        var orres = orders.Adapt<IEnumerable<OrderResopnse>>();
+
+        return Result.Success<IEnumerable<OrderResopnse>>(orres);
     }
+
+
 }

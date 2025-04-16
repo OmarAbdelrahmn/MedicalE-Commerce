@@ -6,7 +6,7 @@ namespace Medical_E_Commerce.Service.Order;
 
 public interface IOrderService
 {
-    Task<Result<OrderResopnse>> GetUserId(int Userid);
-    Task<Result<OrderResopnse>> GetpharmacyId(int PharmacyId);
+    Task<Result<IEnumerable<OrderResopnse>>> GetUserId(int Userid);
+    Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(int PharmacyId);
 
 }
