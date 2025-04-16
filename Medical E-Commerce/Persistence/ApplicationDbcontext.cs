@@ -15,6 +15,7 @@ public class ApplicationDbcontext(DbContextOptions<ApplicationDbcontext> options
     public DbSet<Image> Images { get; set; } = default!;
     public DbSet<Article> Articles { get; set; } = default!;
     public DbSet<Fav> Fav { get; set; } = default!;
+    public DbSet<Order> Orders { get; set; } = default!;
 
 
 
