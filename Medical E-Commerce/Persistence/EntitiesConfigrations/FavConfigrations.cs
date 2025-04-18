@@ -7,7 +7,7 @@ public class FavConfigrations : IEntityTypeConfiguration<Fav>
     public void Configure(EntityTypeBuilder<Fav> builder)
     {
         builder.ToTable("Favourites")
-            .HasKey(f => new {f.ItemId , f.UserId});
+            .HasKey(f => new { f.ItemId, f.UserId });
 
 
     }

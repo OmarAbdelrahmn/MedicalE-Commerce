@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddScoped<ICartService, CartService>();
         services.AddScoped<IFavService, FavService>();
         services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<INotinficationService,NotinficationService>();
+        services.AddScoped<INotinficationService, NotinficationService>();
 
         services
             .AddSwagger()
@@ -135,7 +135,7 @@ public static class DependencyInjection
         options.AppId = configuration["WebFaceAuth:ClientId"]!;
         options.AppSecret = configuration["WebFaceAuth:ClientSecret"]!;
     }
-    ); 
+    );
 
         services.Configure<IdentityOptions>(options =>
         {

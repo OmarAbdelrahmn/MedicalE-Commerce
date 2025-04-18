@@ -1,6 +1,5 @@
 ﻿using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Errors;
-using Medical_E_Commerce.Contracts.CartItem;
 using Medical_E_Commerce.Contracts.Fav;
 
 namespace Medical_E_Commerce.Service.Fav;
@@ -11,9 +10,9 @@ public class FavService(ApplicationDbcontext dbcontext) : IFavService
 
     public async Task<Result> AddItem(string UserId, int ItemId)
     {
-       var Fav = await dbcontext.Fav
-            .Where(c => c.UserId == UserId && c.ItemId == ItemId)
-            .SingleOrDefaultAsync();
+        var Fav = await dbcontext.Fav
+             .Where(c => c.UserId == UserId && c.ItemId == ItemId)
+             .SingleOrDefaultAsync();
         if (Fav != null)
             return Result.Failure(CartErrors.ItemAlreadyInFav);
 
@@ -60,10 +59,10 @@ public class FavService(ApplicationDbcontext dbcontext) : IFavService
         if (FavItems == null)
             return Result.Failure<FavResponse>(CartErrors.FavNotFound);
 
-        
-           var fav = FavItems.Adapt<FavResponse>();
 
-            return Result.Success(fav);
-        
+        var fav = FavItems.Adapt<FavResponse>();
+
+        return Result.Success(fav);
+
     }
 }

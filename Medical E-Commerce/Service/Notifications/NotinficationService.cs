@@ -1,13 +1,11 @@
 ﻿
 using Medical_E_Commerce.Helpers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Medical_E_Commerce.Service.Notifications;
 
 public class NotinficationService(
     ApplicationDbcontext dbcontext,
-    UserManager<ApplicationUser> userManager ,
+    UserManager<ApplicationUser> userManager,
     IHttpContextAccessor httpContextAccessor,
     IEmailSender emailSender) : INotinficationService
 {
@@ -16,9 +14,9 @@ public class NotinficationService(
     private readonly IHttpContextAccessor httpContextAccessor = httpContextAccessor;
     private readonly IEmailSender emailSender = emailSender;
 
-    
-       public async Task SendPharmacyNotification()
-        {
+
+    public async Task SendPharmacyNotification()
+    {
         IEnumerable<Entities.Pharmacy> Pharmacy = [];
 
 
@@ -27,7 +25,7 @@ public class NotinficationService(
                 .AsNoTracking()
                 .Take(3)
                 .ToListAsync();
-        
+
 
         //TODO: Select members only
         var users = await userManager.Users.ToListAsync();

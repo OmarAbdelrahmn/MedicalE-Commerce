@@ -18,13 +18,13 @@ public class MappingConfigration : IRegister
 
         config.NewConfig<Item, ItemResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
-        
-        
+
+
         config.NewConfig<Item, ItemDetailsResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
-        
-        
-        config.NewConfig<List<int> , FavResponse >()
+
+
+        config.NewConfig<List<int>, FavResponse>()
             .Map(des => des.ItemsIds, sour => sour);
 
 

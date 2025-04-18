@@ -1,5 +1,4 @@
-﻿using MailKit.Search;
-using Medical_E_Commerce.Abstractions;
+﻿using Medical_E_Commerce.Abstractions;
 using Medical_E_Commerce.Abstractions.Errors;
 using Medical_E_Commerce.Contracts;
 using Medical_E_Commerce.Contracts.Pharmacy;

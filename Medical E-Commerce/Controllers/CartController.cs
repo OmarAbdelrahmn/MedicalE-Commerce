@@ -55,8 +55,8 @@ public class CartController(ICartService service) : ControllerBase
 
         return response.IsSuccess ? Ok() : response.ToProblem();
     }
-    
-    
+
+
     [HttpPut("pay")]
     [Authorize(Roles = DefaultRoles.Member)]
     public async Task<IActionResult> Pay()

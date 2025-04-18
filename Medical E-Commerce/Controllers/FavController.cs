@@ -2,7 +2,6 @@
 using Medical_E_Commerce.Extensions;
 using Medical_E_Commerce.Service.Fav;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical_E_Commerce.Controllers;
@@ -23,7 +22,7 @@ public class FavController(IFavService service) : ControllerBase
             ? Ok()
             : result.ToProblem();
     }
-    
+
     [HttpDelete("")]
     public async Task<IActionResult> Clear()
     {

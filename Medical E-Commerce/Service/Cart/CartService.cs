@@ -107,7 +107,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
 
 
         return Result.Success();
-        
+
     }
 
     public async Task<Result<CartResopse>> Show(string UserId)

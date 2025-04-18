@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Medical_E_Commerce.Controllers;
 [Route("[controller]")]
 [ApiController]
-public class PharmacyController(IPharmacyService service , IItemService service1) : ControllerBase
+public class PharmacyController(IPharmacyService service, IItemService service1) : ControllerBase
 {
     private readonly IPharmacyService service = service;
     private readonly IItemService service1 = service1;

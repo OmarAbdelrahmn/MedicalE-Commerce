@@ -2,9 +2,9 @@
 
 public record OrderResopnse
 (
-    int Id ,
-    string UserId ,
-    IList<int>? ItemsId ,
-    decimal TotalPrice ,
-    int PharmacyId 
+    int Id,
+    string UserId,
+    IList<int>? ItemsId,
+    decimal TotalPrice,
+    int PharmacyId
 );
