@@ -123,7 +123,20 @@ public static class DependencyInjection
 
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Jwtsetting?.Key!))
             };
-        });
+        })
+    .AddGoogle(options =>
+    {
+        options.ClientId = "454291609777-smjnn78571vk0ro0nruacvqn3u7nvotk.apps.googleusercontent.com";
+        options.ClientSecret = "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";
+    })
+    .AddFacebook(
+    options =>
+    {
+        options.AppId = configuration["WebFaceAuth:ClientId"]!;
+        options.AppSecret = configuration["WebFaceAuth:ClientSecret"]!;
+    }
+    ); 
+
         services.Configure<IdentityOptions>(options =>
         {
             // Default Lockout settings.
