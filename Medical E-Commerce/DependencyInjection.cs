@@ -126,8 +126,8 @@ public static class DependencyInjection
         })
     .AddGoogle(options =>
     {
-        options.ClientId = "454291609777-smjnn78571vk0ro0nruacvqn3u7nvotk.apps.googleusercontent.com";
-        options.ClientSecret = "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";
+        options.ClientId = configuration["WebGoogleAuth:ClientId"]!;
+        options.ClientSecret = configuration["WebGoogleAuth:ClientSecret"]!;
     })
     .AddFacebook(
     options =>
