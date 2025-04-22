@@ -66,7 +66,11 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
 
     public async Task<Result> Pay(string UserId)
     {
-        var cart = await dbcontext.Carts.Where(c => c.UserId == UserId).SingleOrDefaultAsync();
+        var cart = await dbcontext.Carts
+            .Where(c => c.UserId == UserId)
+            .Include(c=>c.Items)!
+            .ThenInclude(c => c.Item)
+            .SingleOrDefaultAsync();
 
         if (cart == null)
             return Result.Failure<CartResopse>(CartErrors.CartNotFound);
