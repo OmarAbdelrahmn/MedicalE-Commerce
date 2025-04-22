@@ -2,7 +2,6 @@
 
 using Medical_E_Commerce.Service.Fav;
 using Medical_E_Commerce.Service.Notifications;
-using Medical_E_Commerce.Service.Order;
 
 namespace Medical_E_Commerce;
 

@@ -1,9 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Errors;
-using Medical_E_Commerce.Contracts;
-using Medical_E_Commerce.Contracts.Pharmacy;
-
-namespace Medical_E_Commerce.Service.Pharmacy;
+﻿namespace Medical_E_Commerce.Service.Pharmacy;
 
 public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
 {

@@ -1,5 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions.Consts;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Medical_E_Commerce.Persistence.EntitiesConfigrations;
 

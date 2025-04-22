@@ -1,7 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Consts;
-using Medical_E_Commerce.Abstractions.Errors;
-using Medical_E_Commerce.Helpers;
+﻿using Medical_E_Commerce.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Security.Cryptography;
 

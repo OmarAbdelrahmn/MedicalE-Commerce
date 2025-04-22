@@ -1,6 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions.Consts;
-
-namespace Medical_E_Commerce.Contracts.User;
+﻿namespace Medical_E_Commerce.Contracts.User;
 
 public class ChangePasswordValidator : AbstractValidator<ChangePasswordRequest>
 {

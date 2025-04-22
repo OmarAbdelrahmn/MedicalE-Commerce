@@ -1,7 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Contracts;
-
-namespace Medical_E_Commerce.Service.Order;
+﻿namespace Medical_E_Commerce.Service.Order;
 
 public interface IOrderService
 {

@@ -1,7 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Contracts.Item;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Medical_E_Commerce.Contracts.Item;
 
 namespace Medical_E_Commerce.Controllers;
 [Route("pharmacy/{PharmacyId}/[controller]")]

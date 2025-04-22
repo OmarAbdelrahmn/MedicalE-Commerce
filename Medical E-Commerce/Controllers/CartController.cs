@@ -1,11 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Consts;
-using Medical_E_Commerce.Contracts.CartItem;
-using Medical_E_Commerce.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Medical_E_Commerce.Controllers;
+﻿namespace Medical_E_Commerce.Controllers;
 [Route("[controller]")]
 [ApiController]
 public class CartController(ICartService service) : ControllerBase

@@ -1,7 +1,6 @@
 ﻿using Medical_E_Commerce.Contracts.Admin;
 using Medical_E_Commerce.Contracts.Fav;
 using Medical_E_Commerce.Contracts.Item;
-using Medical_E_Commerce.Contracts.Pharmacy;
 
 namespace Medical_E_Commerce.Mapping;
 

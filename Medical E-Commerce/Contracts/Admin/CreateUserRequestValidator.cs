@@ -1,6 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions.Consts;
-
-namespace Medical_E_Commerce.Contracts.Admin;
+﻿namespace Medical_E_Commerce.Contracts.Admin;
 
 public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
 {

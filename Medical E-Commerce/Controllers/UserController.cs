@@ -1,10 +1,7 @@
-﻿using Medical_E_Commerce.Abstractions;
-
-
-namespace Medical_E_Commerce.Controllers;
+﻿namespace Medical_E_Commerce.Controllers;
 [Route("me")]
 [ApiController]
-[Authorize(Roles =$"{DefaultRoles.Member},{DefaultRoles.Admin}")]
+[Authorize(Roles = $"{DefaultRoles.Member},{DefaultRoles.Admin}")]
 public class UserController(IUserService service) : ControllerBase
 {
     private readonly IUserService service = service;

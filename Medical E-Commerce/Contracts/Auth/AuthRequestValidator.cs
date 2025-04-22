@@ -1,6 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions.Consts;
-
-namespace Medical_E_Commerce.Contracts.Auth;
+﻿namespace Medical_E_Commerce.Contracts.Auth;
 
 public class AuthRequestValidator : AbstractValidator<AuthRequest>
 {

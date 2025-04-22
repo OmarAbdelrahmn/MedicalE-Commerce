@@ -66,7 +66,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
     {
         var cart = await dbcontext.Carts
             .Where(c => c.UserId == UserId)
-            .Include(c=>c.Items)!
+            .Include(c => c.Items)!
             .ThenInclude(c => c.Item)
             .SingleOrDefaultAsync();
 

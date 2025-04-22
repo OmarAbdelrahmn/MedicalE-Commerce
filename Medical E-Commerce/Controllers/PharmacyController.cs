@@ -1,9 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Contracts.Pharmacy;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Medical_E_Commerce.Controllers;
+﻿namespace Medical_E_Commerce.Controllers;
 [Route("[controller]")]
 [ApiController]
 public class PharmacyController(IPharmacyService service, IItemService service1) : ControllerBase

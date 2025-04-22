@@ -1,7 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-
-
-namespace Medical_E_Commerce.Service.Auth;
+﻿namespace Medical_E_Commerce.Service.Auth;
 
 public interface IAuthService
 {
