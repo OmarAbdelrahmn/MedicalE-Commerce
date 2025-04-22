@@ -1,10 +1,5 @@
 ﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Consts;
-using Medical_E_Commerce.Contracts.Files;
-using Medical_E_Commerce.Contracts.User;
-using Medical_E_Commerce.Extensions;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace Medical_E_Commerce.Controllers;
 [Route("me")]

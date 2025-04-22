@@ -1,6 +1,4 @@
-﻿using Medical_E_Commerce.Abstractions;
-using Medical_E_Commerce.Abstractions.Errors;
-using Medical_E_Commerce.Contracts.CartItem;
+﻿
 
 namespace Medical_E_Commerce.Service.Cart;
 
