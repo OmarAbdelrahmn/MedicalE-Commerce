@@ -19,7 +19,7 @@ public class FavController(IFavService service) : ControllerBase
             : result.ToProblem();
     }
 
-    [HttpDelete("")]
+    [HttpDelete("clear")]
     public async Task<IActionResult> Clear()
     {
         var userid = User.GetUserId();
@@ -39,6 +39,17 @@ public class FavController(IFavService service) : ControllerBase
         var result = await service.Show(userid!);
         return result.IsSuccess
             ? Ok(result.Value)
+            : result.ToProblem();
+    }
+    
+    [HttpDelete("item/{ItemId}")]
+    public async Task<IActionResult> Delete(int ItemId)
+    {
+        var userid = User.GetUserId();
+
+        var result = await service.DeItem(userid! , ItemId);
+        return result.IsSuccess
+            ? Ok()
             : result.ToProblem();
     }
 

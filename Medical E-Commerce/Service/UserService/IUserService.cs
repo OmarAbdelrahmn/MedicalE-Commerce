@@ -9,5 +9,4 @@ public interface IUserService
     Task<Result> DeleteImage(string id);
     Task<(FileStream? fileStream, string contentType, string fileName)> FileStream(string id);
 
-
 }

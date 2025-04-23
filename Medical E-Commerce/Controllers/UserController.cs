@@ -40,7 +40,7 @@ public class UserController(IUserService service) : ControllerBase
 
 
     [HttpGet("image-stream")]
-    public async Task<IActionResult> Dtream()
+    public async Task<IActionResult> Stream()
     {
         var (filestream, contenttype, filename) = await service.FileStream(User.GetUserId()!);
 

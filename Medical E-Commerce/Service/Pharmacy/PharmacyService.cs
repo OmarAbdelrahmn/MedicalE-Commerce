@@ -1,4 +1,6 @@
-﻿namespace Medical_E_Commerce.Service.Pharmacy;
+﻿using Medical_E_Commerce.Contracts.Item;
+
+namespace Medical_E_Commerce.Service.Pharmacy;
 
 public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
 {
@@ -35,13 +37,15 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
     {
         var result = new SearchResultGroup
         {
-            Pharmacies = await dbcontext.Pharmacies
+            Pharmacies = dbcontext.Pharmacies
          .Where(p => p.Name.Contains(name))
-         .ToListAsync(),
+         .ProjectToType<PharmacyResponse>()
+         .ToList(),
 
-            Items = await dbcontext.Items
+            Items =  dbcontext.Items
          .Where(i => i.Name.Contains(name))
-         .ToListAsync()
+         .ProjectToType<ItemResponse>()
+         .ToList()
         };
 
         if (result.Pharmacies.Count == 0 && result.Items.Count == 0)

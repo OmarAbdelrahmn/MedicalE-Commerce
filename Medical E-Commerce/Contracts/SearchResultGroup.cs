@@ -1,6 +1,8 @@
-﻿namespace Medical_E_Commerce.Contracts;
+﻿using Medical_E_Commerce.Contracts.Item;
+
+namespace Medical_E_Commerce.Contracts;
 public class SearchResultGroup
 {
-    public List<Entities.Pharmacy> Pharmacies { get; set; } = [];
-    public List<Entities.Item> Items { get; set; } = [];
+    public List<PharmacyResponse> Pharmacies { get; set; } = [];
+    public List<ItemResponse> Items { get; set; } = [];
 }

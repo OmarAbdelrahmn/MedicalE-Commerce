@@ -50,6 +50,18 @@ public class FavService(ApplicationDbcontext dbcontext) : IFavService
         return Result.Success();
     }
 
+    public async Task<Result> DeItem(string UserId, int ItemId)
+    {
+        var item = await dbcontext.Fav
+            .Where(c => c.UserId == UserId && c.ItemId == ItemId)
+            .ExecuteDeleteAsync();
+
+        if (item == 0)
+            return Result.Failure(CartErrors.NoItem);
+
+        return Result.Success();
+    }
+
     public async Task<Result<FavResponse>> Show(string UserId)
     {
         var FavItems = await dbcontext.Fav.Where(c => c.UserId == UserId).Select(c => c.ItemId).ToListAsync();
