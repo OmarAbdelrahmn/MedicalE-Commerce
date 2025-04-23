@@ -61,6 +61,7 @@ public class UserService(UserManager<ApplicationUser> manager
 
         return (filestream, file.ContentType, file.FileName);
     }
+
     public async Task<Guid> UpoadImage(string id, IFormFile file)
     {
         var user = await manager.FindByIdAsync(id);
@@ -88,5 +89,29 @@ public class UserService(UserManager<ApplicationUser> manager
         await dbcontext.SaveChangesAsync();
 
         return uploadedfile.Id;
+    }
+
+    public async Task<Result> DeleteImage(string id)
+    {
+        var file = await dbcontext.Images.Where(c=>c.UserId == id).SingleOrDefaultAsync();
+        if (file == null)
+            return Result.Failure(new Error("No.Image", "No Image To Delete", StatusCodes.Status404NotFound));
+
+        var deletefile = await dbcontext.Images
+            .Where(i => i.UserId == id)
+            .ExecuteDeleteAsync();
+
+        if (deletefile == 0)
+            return Result.Failure(new Error("someThingWrong", "SomeThingWentWrong", StatusCodes.Status404NotFound));
+
+        var user = await manager.FindByIdAsync(id);
+
+        user!.ImageId = null;
+
+        await manager.UpdateAsync(user);
+
+        await dbcontext.SaveChangesAsync();
+
+        return Result.Success();
     }
 }

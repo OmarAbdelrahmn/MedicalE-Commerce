@@ -33,19 +33,29 @@ public class UserController(IUserService service) : ControllerBase
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImagesAsync([FromForm] UpdoadImagessRequest request)
     {
-        await service.UpoadImage(User.GetUserId()!, request.Image);
+        var id = await service.UpoadImage(User.GetUserId()!, request.Image);
 
         return Created();
     }
 
 
     [HttpGet("image-stream")]
-    public async Task<IActionResult> stream()
+    public async Task<IActionResult> Dtream()
     {
         var (filestream, contenttype, filename) = await service.FileStream(User.GetUserId()!);
 
         return filestream is null ?
             NoContent() :
             File(filestream, contenttype, filename, enableRangeProcessing: true);
+    }
+    
+    [HttpDelete("delete-image")]
+    public async Task<IActionResult> Delete()
+    {
+        var response = await service.DeleteImage(User.GetUserId()!);
+
+        return response.IsSuccess ?
+            NoContent() :
+            response.ToProblem();
     }
 }
