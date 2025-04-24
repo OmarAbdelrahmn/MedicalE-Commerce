@@ -48,7 +48,7 @@ public class UserController(IUserService service) : ControllerBase
             NoContent() :
             File(filestream, contenttype, filename, enableRangeProcessing: true);
     }
-    
+
     [HttpDelete("delete-image")]
     public async Task<IActionResult> Delete()
     {

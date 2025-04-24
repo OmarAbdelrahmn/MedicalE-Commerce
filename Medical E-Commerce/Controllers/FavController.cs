@@ -41,13 +41,13 @@ public class FavController(IFavService service) : ControllerBase
             ? Ok(result.Value)
             : result.ToProblem();
     }
-    
+
     [HttpDelete("item/{ItemId}")]
     public async Task<IActionResult> Delete(int ItemId)
     {
         var userid = User.GetUserId();
 
-        var result = await service.DeItem(userid! , ItemId);
+        var result = await service.DeItem(userid!, ItemId);
         return result.IsSuccess
             ? Ok()
             : result.ToProblem();

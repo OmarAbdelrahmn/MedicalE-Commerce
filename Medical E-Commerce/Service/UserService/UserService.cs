@@ -93,7 +93,7 @@ public class UserService(UserManager<ApplicationUser> manager
 
     public async Task<Result> DeleteImage(string id)
     {
-        var file = await dbcontext.Images.Where(c=>c.UserId == id).SingleOrDefaultAsync();
+        var file = await dbcontext.Images.Where(c => c.UserId == id).SingleOrDefaultAsync();
         if (file == null)
             return Result.Failure(new Error("No.Image", "No Image To Delete", StatusCodes.Status404NotFound));
 

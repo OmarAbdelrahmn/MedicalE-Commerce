@@ -42,7 +42,7 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
          .ProjectToType<PhResponse>()
          .ToList(),
 
-            Items =  dbcontext.Items
+            Items = dbcontext.Items
          .Where(i => i.Name.Contains(name))
          .ProjectToType<ItemResponse>()
          .ToList()
