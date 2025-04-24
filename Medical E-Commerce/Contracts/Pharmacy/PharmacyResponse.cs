@@ -13,3 +13,14 @@ public record PharmacyResponse
      string MapsLocation,
      IList<ItemResponse> Items
     );
+
+public record PhResponse
+(
+     int Id,
+     string Name,
+     string ImageURL,
+     string PhoneNumbers,
+     string WhatsUrl,
+     string Location,
+     string MapsLocation
+    );

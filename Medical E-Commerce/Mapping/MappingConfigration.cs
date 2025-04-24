@@ -14,6 +14,9 @@ public class MappingConfigration : IRegister
 
         config.NewConfig<Pharmacy, PharmacyResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
+        
+        config.NewConfig<Pharmacy, PhResponse>()
+            .Map(des => des.ImageURL, sour => sour.ImageURL);
 
         config.NewConfig<Item, ItemResponse>()
             .Map(des => des.ImageURL, sour => sour.ImageURL);
