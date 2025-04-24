@@ -35,11 +35,14 @@ RecurringJob.AddOrUpdate("SendPharmacyNotification", () => notificationService.S
 
 
 app.UseHttpsRedirection();
+
 app.UseCors();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 
