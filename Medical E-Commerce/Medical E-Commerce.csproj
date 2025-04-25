@@ -36,4 +36,14 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="wwwroot\.well-known\pki-validation\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Content Include="Templates\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	
 </Project>
