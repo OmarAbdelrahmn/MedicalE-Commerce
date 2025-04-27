@@ -4,7 +4,7 @@ public class UserService(UserManager<ApplicationUser> manager
     , ApplicationDbcontext dbcontext
     , IWebHostEnvironment webHostEnvironment) : IUserService
 {
-    private readonly string Imageepath = $"{webHostEnvironment.WebRootPath}/Images";
+    private readonly string Imageepath = $"{webHostEnvironment.WebRootPath}/images";
 
     public async Task<Result> ChangePassword(string id, ChangePasswordRequest request)
     {
