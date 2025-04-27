@@ -73,14 +73,20 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         if (cart == null)
             return Result.Failure<CartResopse>(CartErrors.CartNotFound);
 
-        var cartItems = await dbcontext.CartItems.AnyAsync(c => c.CartId == cart.Id);
+        //var cartItems = await dbcontext.CartItems.AnyAsync(c => c.CartId == cart.Id);
 
-        if (!cartItems)
+        if (cart.Items == null || cart.Items.Count == 0)  // to not send another query to the db
             return Result.Failure<CartResopse>(CartErrors.NoItem);
 
-        var OrderPrice = await dbcontext.CartItems
-            .Where(c => c.CartId == cart.Id)
-            .Select(c => c.Item.Price * c.Count).SumAsync();
+        //if (!cartItems)
+        //    return Result.Failure<CartResopse>(CartErrors.NoItem);
+
+        //var OrderPrice = await dbcontext.CartItems
+        //    .Where(c => c.CartId == cart.Id)
+        //    .Select(c => c.Item.Price * c.Count).SumAsync();
+
+        var totalPrice = cart.Items.Sum(ci => ci.Item.Price * ci.Count);
+
 
         var pharmayID = cart.Items!.Select(c => c.Item.PharmacyId).FirstOrDefault();
 
@@ -90,7 +96,7 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         {
             UserId = UserId,
             ItemsId = ItemsId,
-            TotalPrice = OrderPrice,
+            TotalPrice = totalPrice,
             PharmacyId = pharmayID
         };
 
@@ -100,9 +106,11 @@ public class CartService(UserManager<ApplicationUser> manager, ApplicationDbcont
         if (result == null)
             return Result.Failure<CartResopse>(CartErrors.somethingwentwrong);
 
-        var dv = await dbcontext.CartItems
+        var dv = await dbcontext.CartItems   // better for performance
             .Where(c => c.CartId == cart.Id)
             .ExecuteDeleteAsync();
+
+        //dbcontext.CartItems.RemoveRange(cart.Items!);  
 
         if (dv == 0)
             return Result.Failure<CartResopse>(CartErrors.somethingwentwrong);
