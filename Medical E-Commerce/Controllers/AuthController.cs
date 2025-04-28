@@ -11,7 +11,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.RegisterAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok("We have sent you an Email , Please confirm the Email to continue") :
             response.ToProblem();
     }
 
@@ -32,7 +32,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ConfirmEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok("Your Email had been confirmed successfully") :
             response.ToProblem();
     }
 
@@ -43,7 +43,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResendEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok("We resend your confirmation Email") :
             response.ToProblem();
     }
 
@@ -77,7 +77,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ForgetPassordAsync(request);
 
         return response.IsSuccess ?
-                Ok() :
+                Ok("we sent forget password email") :
                 response.ToProblem();
     }
 
@@ -87,7 +87,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResetPasswordAsync(request);
 
         return response.IsSuccess ?
-                Ok() :
+                Ok("Your Password Has been reset successfully") :
                 response.ToProblem();
     }
 }
