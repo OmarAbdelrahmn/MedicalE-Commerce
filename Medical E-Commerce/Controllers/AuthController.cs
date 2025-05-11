@@ -11,7 +11,8 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.RegisterAsync(request);
 
         return response.IsSuccess ?
-            Ok("We have sent you an Email , Please confirm the Email to continue") :
+            //Ok("{\"massege\" : \"We have sent you an Email , Please confirm the Email to continue\"}") :
+            Ok(new Resu("We have sent you an Email , Please confirm the Email to continue")) :
             response.ToProblem();
     }
 
@@ -32,7 +33,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ConfirmEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok("Your Email had been confirmed successfully") :
+            Ok(new Resu("Email confirmed successfully")) :
             response.ToProblem();
     }
 
@@ -43,7 +44,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResendEmailAsync(request);
 
         return response.IsSuccess ?
-            Ok("We resend your confirmation Email") :
+            Ok(new Resu("We resend your confirmation Email")) :
             response.ToProblem();
     }
 
@@ -67,7 +68,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.RevokeRefreshTokenAsync(request.Token, request.RefreshToken);
 
         return response.IsSuccess ?
-            Ok() :
+            Ok(new Resu("Token revoked successfully")) :
             response.ToProblem();
     }
 
@@ -77,7 +78,7 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ForgetPassordAsync(request);
 
         return response.IsSuccess ?
-                Ok("we sent forget password email") :
+                Ok(new Resu("we sent forget password email")) :
                 response.ToProblem();
     }
 
@@ -87,7 +88,14 @@ public class AuthController(IAuthService service) : ControllerBase
         var response = await service.ResetPasswordAsync(request);
 
         return response.IsSuccess ?
-                Ok("Your Password Has been reset successfully") :
+                Ok(new Resu("Your Password Has been reset successfully")) :
                 response.ToProblem();
     }
+}
+
+    
+
+public class Resu(string massage)
+{
+    public string Massage { get; set; } = massage;
 }
