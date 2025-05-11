@@ -42,6 +42,8 @@ public class AuthService(
 
             await sendemail(user, code);
 
+            await manager.AddToRoleAsync(user, DefaultRoles.Member);
+
             return Result.Success();
         }
         var errors = result.Errors.First();
@@ -231,9 +233,6 @@ public class AuthService(
 
         if (result.Succeeded)
         {
-
-            await manager.AddToRoleAsync(user, DefaultRoles.Member);
-
             return Result.Success();
         }
         var errors = result.Errors.First();
@@ -261,8 +260,6 @@ public class AuthService(
 
         return Result.Success();
     }
-
-
 
     private async Task sendchangepasswordemail(ApplicationUser user, string code)
     {
