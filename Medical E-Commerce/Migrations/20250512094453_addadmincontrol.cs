@@ -46,6 +46,6 @@ namespace Medical_E_Commerce.Migrations
                 name: "AdminId",
                 table: "Pharmacies");
 
-             }
+        }
     }
 }

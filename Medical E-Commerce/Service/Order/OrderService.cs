@@ -4,7 +4,7 @@ public class OrderService(ApplicationDbcontext dbcontext) : IOrderService
 {
     private readonly ApplicationDbcontext dbcontext = dbcontext;
 
-    public async Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(string UserId , int PharmacyId)
+    public async Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(string UserId, int PharmacyId)
     {
         var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
         if (!PharmacyIsExcists)

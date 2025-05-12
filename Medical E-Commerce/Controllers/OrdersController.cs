@@ -22,7 +22,7 @@ public class OrdersController(IOrderService service) : ControllerBase
     public async Task<IActionResult> GetOrders(int PharmacyId)
     {
         var UserId = User.GetUserId();
-        var orders = await service.GetpharmacyId(UserId! , PharmacyId);
+        var orders = await service.GetpharmacyId(UserId!, PharmacyId);
 
         return orders.IsSuccess
             ? Ok(orders.Value)

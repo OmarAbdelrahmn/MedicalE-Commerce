@@ -93,7 +93,7 @@ public class AuthController(IAuthService service) : ControllerBase
     }
 }
 
-    
+
 
 public class Resu(string massage)
 {

@@ -27,9 +27,6 @@ public class PharmacyRequestValidator : AbstractValidator<PharmacyRequest>
         RuleFor(x => x.MapsLocation)
             .NotEmpty()
             .WithMessage("MapsLocation is required");
-        
-        RuleFor(x => x.AdminId)
-            .NotEmpty()
-            .WithMessage("AdminId is required");
+
     }
 }

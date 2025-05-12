@@ -11,7 +11,7 @@ public class MappingConfigration : IRegister
         //typing your all mapping configurations
         config.NewConfig<ApplicationUser, AuthResponse>()
             .Map(des => des.UserAddress, sour => sour.UserAddress);
-        
+
         config.NewConfig<Registerrequest, ApplicationUser>()
             .Map(des => des.UserAddress, sour => sour.UserAdress);
 
