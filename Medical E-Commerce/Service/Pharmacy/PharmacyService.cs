@@ -4,14 +4,16 @@ namespace Medical_E_Commerce.Service.Pharmacy;
 
 public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
 {
-    public async Task<Result<PharmacyResponse>> AddAsync(PharmacyRequest request)
+    public async Task<Result<PharmacyResponse>> AddAsync(string userId , PharmacyRequest request)
     {
         var PhamacyNameIsExist = await dbcontext.Pharmacies.AnyAsync(c => c.Name == request.Name);
 
         if (PhamacyNameIsExist)
             return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmacyNameIsExist);
 
+
         var pharmacy = request.Adapt<Entities.Pharmacy>();
+        pharmacy.AdminId = userId;
 
         await dbcontext.Pharmacies.AddAsync(pharmacy);
         await dbcontext.SaveChangesAsync();
@@ -33,7 +35,7 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
         return Result.Success<IEnumerable<PharmacyResponse>>(pharmacy);
     }
 
-    public async Task<Result<SearchResultGroup>> GetalAsync(string name)
+    public Task<Result<SearchResultGroup>> GetalAsync(string name)
     {
         var result = new SearchResultGroup
         {
@@ -83,7 +85,7 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
         return Result.Success<IEnumerable<PharmacyResponse>>(pharmacy);
     }
 
-    public async Task<Result<PharmacyResponse>> UpdateAsync(int Id, PharmacyRequest request)
+    public async Task<Result<PharmacyResponse>> UpdateAsync(string userId ,int Id, PharmacyRequest request)
     {
 
         var PhamacyIsExist = await dbcontext.Pharmacies.AnyAsync(c => c.Name == request.Name && c.Id != Id);
@@ -91,7 +93,14 @@ public class PharmacyService(ApplicationDbcontext dbcontext) : IPharmacyService
         if (PhamacyIsExist)
             return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmacyNameIsExist);
 
+        var TheRightAdmin = await dbcontext.Pharmacies.Where(c => c.AdminId == userId).FirstOrDefaultAsync();
+
+        if (TheRightAdmin == null)
+            return Result.Failure<PharmacyResponse>(PharmacyErrors.Donthave);
+
         var pharmacy = await dbcontext.Pharmacies.FindAsync(Id);
+        if (pharmacy is null)
+            return Result.Failure<PharmacyResponse>(PharmacyErrors.PharmcayNotFound);
 
         pharmacy!.Location = request.Location;
         pharmacy.ImageURL = request.ImageURL;

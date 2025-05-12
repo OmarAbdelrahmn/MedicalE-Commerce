@@ -64,9 +64,9 @@ public class ItemsController(IItemService service) : ControllerBase
 
     [HttpPost("")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> AddItems(int PharmacyId, ItemRequest request)
+    public async Task<IActionResult> AddItems(string UserId, int PharmacyId, ItemRequest request)
     {
-        var result = await service.AddAsync(PharmacyId, request);
+        var result = await service.AddAsync(UserId, PharmacyId, request);
 
         return result.IsSuccess ?
             Ok(result.Value) :

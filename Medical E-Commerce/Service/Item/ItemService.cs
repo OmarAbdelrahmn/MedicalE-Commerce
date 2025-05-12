@@ -6,12 +6,17 @@ public class ItemService(ApplicationDbcontext dbcontext) : IItemService
 {
     private readonly ApplicationDbcontext dbcontext = dbcontext;
 
-    public async Task<Result<ItemResponse>> AddAsync(int PharmacyId, ItemRequest request)
+    public async Task<Result<ItemResponse>> AddAsync(string UserId, int PharmacyId, ItemRequest request)
     {
         var PharmacyIsExcists = await dbcontext.Pharmacies.AnyAsync(c => c.Id == PharmacyId);
 
         if (!PharmacyIsExcists)
             return Result.Failure<ItemResponse>(PharmacyErrors.PharmcayNotFound);
+
+        var ha = await dbcontext.Pharmacies.Where(c => c.Id == PharmacyId && c.AdminId == UserId).SingleOrDefaultAsync();
+
+        if (ha == null)
+            return Result.Failure<ItemResponse>(PharmacyErrors.Donthave);
 
         var Item = await dbcontext.Items.Where(c => c.Name == request.Name).SingleOrDefaultAsync();
 

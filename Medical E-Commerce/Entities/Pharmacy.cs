@@ -15,4 +15,6 @@ public class Pharmacy
     public string MapsLocation { get; set; } = string.Empty;
     public string WorkTime { get; set; } = " 24 hours ";
     public ICollection<Item> Items { get; set; } = [];
+    public string? AdminId { get; set; } = string.Empty;
+    public ApplicationUser? Admin { get; set; } = default!;
 }

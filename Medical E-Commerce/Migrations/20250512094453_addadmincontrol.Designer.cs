@@ -4,6 +4,7 @@ using Medical_E_Commerce.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical_E_Commerce.Migrations
 {
     [DbContext(typeof(ApplicationDbcontext))]
-    partial class ApplicationDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20250512094453_addadmincontrol")]
+    partial class addadmincontrol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +170,7 @@ namespace Medical_E_Commerce.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CARE-CAPSOLE.COM",
                             NormalizedUserName = "ADMIN@CARE-CAPSOLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEODqzP+8phjUlaVS/7QO9HgVNr28no3wB+TUtFJu6VJyXJxUjGep1yJIAB55yV6g1A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEH5A9pDuaCSa6OtC7Mzr0qkDHgCKaJlHIPve6PNbXcmOmQ7jZ0v/q6fRNHcppItj4g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "9FABB58491024B7BB140E4D6658B5BDA",
                             TwoFactorEnabled = false,
@@ -399,7 +402,9 @@ namespace Medical_E_Commerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
+                    b.HasIndex("AdminId")
+                        .IsUnique()
+                        .HasFilter("[AdminId] IS NOT NULL");
 
                     b.ToTable("Pharmacies");
                 });
@@ -639,8 +644,8 @@ namespace Medical_E_Commerce.Migrations
             modelBuilder.Entity("Medical_E_Commerce.Entities.Pharmacy", b =>
                 {
                     b.HasOne("Medical_E_Commerce.Entities.ApplicationUser", "Admin")
-                        .WithMany("Pharmacy")
-                        .HasForeignKey("AdminId");
+                        .WithOne("Pharmacy")
+                        .HasForeignKey("Medical_E_Commerce.Entities.Pharmacy", "AdminId");
 
                     b.Navigation("Admin");
                 });

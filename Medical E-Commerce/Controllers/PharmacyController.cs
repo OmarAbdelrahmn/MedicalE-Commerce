@@ -43,7 +43,8 @@ public class PharmacyController(IPharmacyService service, IItemService service1)
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AddAsync([FromBody] PharmacyRequest request)
     {
-        var result = await service.AddAsync(request);
+        var UserId = User.GetUserId();
+        var result = await service.AddAsync(UserId , request);
 
         return result.IsSuccess ?
             Ok(result.Value)
@@ -54,7 +55,8 @@ public class PharmacyController(IPharmacyService service, IItemService service1)
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateAsync([FromRoute] int Id, [FromBody] PharmacyRequest request)
     {
-        var result = await service.UpdateAsync(Id, request);
+        var UserId = User.GetUserId();
+        var result = await service.UpdateAsync(UserId! , Id, request);
 
         return result.IsSuccess ?
             Ok(result.Value)

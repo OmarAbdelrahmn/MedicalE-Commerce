@@ -7,5 +7,6 @@ public class ApplicationUser : IdentityUser
     public Guid? ImageId { get; set; }
     public Image? Image { get; set; } = default!;
     public bool IsDisable { get; set; }
+    public List<Pharmacy>? Pharmacy { get; set; } = default!;
     public List<RefreshToken> RefreshTokens { get; set; } = [];
 }

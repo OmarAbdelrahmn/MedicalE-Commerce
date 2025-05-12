@@ -21,7 +21,8 @@ public class OrdersController(IOrderService service) : ControllerBase
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetOrders(int PharmacyId)
     {
-        var orders = await service.GetpharmacyId(PharmacyId);
+        var UserId = User.GetUserId();
+        var orders = await service.GetpharmacyId(UserId! , PharmacyId);
 
         return orders.IsSuccess
             ? Ok(orders.Value)

@@ -3,6 +3,6 @@
 public interface IOrderService
 {
     Task<Result<IEnumerable<OrderResopnse>>> GetUserId(string Userid);
-    Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(int PharmacyId);
+    Task<Result<IEnumerable<OrderResopnse>>> GetpharmacyId(string UserId, int PharmacyId);
 
 }

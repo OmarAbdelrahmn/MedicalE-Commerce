@@ -12,7 +12,7 @@ public class AuthController(IAuthService service) : ControllerBase
 
         return response.IsSuccess ?
             //Ok("{\"massege\" : \"We have sent you an Email , Please confirm the Email to continue\"}") :
-            Ok(new Resu("We have sent you an Email , Please confirm the Email to continue")) :
+            Ok(new Resu("We have sent you an Email , Please confirm the Email if you want")) :
             response.ToProblem();
     }
 
